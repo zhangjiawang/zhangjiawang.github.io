@@ -19,7 +19,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="数据切分（Sharding）关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。 数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分 一. 垂直（纵向）">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82ofq5ij30kg0nedps.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82r9940j30ri0nodri.jpg">
 <meta property="article:published_time" content="2020-05-24T04:00:07.000Z">
-<meta property="article:modified_time" content="2020-07-12T08:53:40.195Z">
+<meta property="article:modified_time" content="2020-07-12T09:08:10.679Z">
 <meta property="article:author" content="Zhangjiawang">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82d7mboj30pe0gcagp.jpg">
@@ -144,17 +144,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -207,8 +207,10 @@
         </a>
       </div>
       <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
         <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
@@ -308,15 +310,14 @@
       
         <h1 id="数据切分（Sharding）"><a href="#数据切分（Sharding）" class="headerlink" title="数据切分（Sharding）"></a>数据切分（Sharding）</h1><p>关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。</p>
 <p><strong>数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分</strong></p>
-<h3 id="一-垂直（纵向）切分"><a href="#一-垂直（纵向）切分" class="headerlink" title="一. 垂直（纵向）切分"></a>一. 垂直（纵向）切分</h3><blockquote>
+<h3 id="一-垂直（纵向）切分"><a href="#一-垂直（纵向）切分" class="headerlink" title="一. 垂直（纵向）切分"></a>一. 垂直（纵向）切分</h3><a id="more"></a>
+<blockquote>
 <p>垂直切分常见有<strong>垂直分库</strong>和<strong>垂直分表</strong>两种。  </p>
 </blockquote>
 <p> 垂直分库：就是<strong>根据业务耦合性，将关联度低的不同表存储在不同的数据库。</strong> 做法与大系统拆分为多个小系统类似，按业务分类进行独立划分。与”微服务治理”的做法相似，每个微服务使用单独的一个数据库。如图：</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82d7mboj30pe0gcagp.jpg" alt=""></p>
 <p>垂直分表：基于<strong>数据库中的”列”进行</strong>，某个表字段较多，可以新建一张扩展表，<strong>将不经常用或字段长度较大的字段拆分出去到扩展表中。</strong> 在字段很多的情况下（例如一个大表有100多个字段），通过”大表拆小表”，更便于开发与维护，也能避免跨页问题，MySQL 底层是通过数据页存储的，一条记录占用空间过大会导致跨页，造成额外的性能开销。另外数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82gyyg6j30ns0bgmyh.jpg" alt=""></p>
-<a id="more"></a>
-
 <p>优点：</p>
 <ul>
 <li>解决业务系统层面的耦合，业务清晰</li>
@@ -459,7 +460,7 @@
       本站总访问量<span id="busuanzi_value_site_uv"></span>次
     </span>
   </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
@@ -481,6 +482,9 @@
 <script src="/js/utils.js"></script>
 
 <script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

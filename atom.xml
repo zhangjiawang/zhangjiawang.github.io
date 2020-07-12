@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-12T08:04:01.113Z</updated>
+  <updated>2020-07-12T09:07:46.439Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://zhangjiawang.github.io/2020/07/11/Redis/"/>
     <id>https://zhangjiawang.github.io/2020/07/11/Redis/</id>
     <published>2020-07-11T11:26:39.000Z</published>
-    <updated>2020-07-12T08:04:01.113Z</updated>
+    <updated>2020-07-12T09:07:46.439Z</updated>
     
     <summary type="html">
     
@@ -32,30 +32,6 @@
 &lt;p&gt;90年代，一个网站的访问量一般不会太大，单个数据库完全足够！&lt;/p&gt;
 &lt;p&gt;大部分都是使用静态 html 网页，服务器根本没有压力&lt;/p&gt;
 &lt;p&gt;瓶颈如下：&lt;/p&gt;
-&lt;p&gt;1、数据量太大，一个机器放不下&lt;/p&gt;
-&lt;p&gt;2、数据索引（B+Tree），一个机器内存也放不下&lt;/p&gt;
-&lt;p&gt;3、访问量太大（读写混合），一个服务器承受不了&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2、Memcached（缓存）+ MySQL + 垂直拆分（读写分离）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;网站 80% 的情况都是在读，每次都去查询数据库就很麻烦，所以使用缓存来保证效率&lt;/p&gt;
-&lt;p&gt;发展过程：优化数据库结构和索引 → 文件缓存（IO）→ Memcache（当时最热门的技术）&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlgy1ggkjkvg90hj31d40owwgd.jpg&quot; alt=&quot;image-20200709110640230&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;3、分库分表 + 水平拆分 + 集群&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;早些年 MyISAM：表锁，十分影响效率，高并发下会出现严重的锁问题&lt;/p&gt;
-&lt;p&gt;转战 InnoDB：行锁&lt;/p&gt;
-&lt;p&gt;使用分库分表解决写的压力&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlgy1ggkk0dnlu5j31ep0u0dis.jpg&quot; alt=&quot;image-20200709112134405&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;4、如今的互联网架构模型&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt; MySQL 等关系型数据库已经不够用了，各种各样的数据（音乐、热榜、图片等）都存在 MySQL 的话，数据库表很大，压力爆表，效率自然低下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlgy1ggkkhnuoojj31gk0qugpw.jpg&quot; alt=&quot;image-20200709113811000&quot;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;为什么要用 NoSQL&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
@@ -72,7 +48,7 @@
     <link href="https://zhangjiawang.github.io/2020/06/24/Docker/"/>
     <id>https://zhangjiawang.github.io/2020/06/24/Docker/</id>
     <published>2020-06-24T06:26:39.000Z</published>
-    <updated>2020-07-12T08:53:43.773Z</updated>
+    <updated>2020-07-12T09:07:18.987Z</updated>
     
     <summary type="html">
     
@@ -80,27 +56,7 @@
 &lt;p&gt;官网：&lt;a href=&quot;https://www.docker.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.docker.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;文档地址：&lt;a href=&quot;https://docs.docker.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://docs.docker.com/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;仓库地址：&lt;a href=&quot;https://hub.docker.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://hub.docker.com/&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;Docker-能干嘛&quot;&gt;&lt;a href=&quot;#Docker-能干嘛&quot; class=&quot;headerlink&quot; title=&quot;Docker 能干嘛&quot;&gt;&lt;/a&gt;Docker 能干嘛&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;之前的虚拟机技术&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlgy1gfwi59d1rrj30ym0u0jsg.jpg&quot; alt=&quot;image-20200611160918604&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;虚拟机技术缺点&lt;/strong&gt;：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;资源占用十分多&lt;/li&gt;
-&lt;li&gt;冗余步骤多&lt;/li&gt;
-&lt;li&gt;启动很慢&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;容器化技术&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;==容器化技术不是模拟的一个完整的操作系统==&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlgy1gfwi5k0e2qj30yk0u0t9w.jpg&quot; alt=&quot;image-20200611161800008&quot;&gt;&lt;/p&gt;
-&lt;p&gt;比较 Docker 和 虚拟机技术的不同：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;传统虚拟机，虚拟出一套硬件，运行一个完整的操作系统，然后在这个系统上安装和运行软件&lt;/li&gt;
-&lt;li&gt;容器内的应用直接运行在宿主机的内核，容器没有自己的内核，也没有虚拟硬件，所以比较轻便&lt;/li&gt;
-&lt;li&gt;每个容器间互相隔离，每个容器内都有一个属于自己的文件系统，互不影响&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;Docker-能干嘛&quot;&gt;&lt;a href=&quot;#Docker-能干嘛&quot; class=&quot;headerlink&quot; title=&quot;Docker 能干嘛&quot;&gt;&lt;/a&gt;Docker 能干嘛&lt;/h2&gt;
     
     </summary>
     
@@ -117,19 +73,13 @@
     <link href="https://zhangjiawang.github.io/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/"/>
     <id>https://zhangjiawang.github.io/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/</id>
     <published>2020-05-24T04:00:07.000Z</published>
-    <updated>2020-07-12T08:53:40.195Z</updated>
+    <updated>2020-07-12T09:08:10.679Z</updated>
     
     <summary type="html">
     
       &lt;h1 id=&quot;数据切分（Sharding）&quot;&gt;&lt;a href=&quot;#数据切分（Sharding）&quot; class=&quot;headerlink&quot; title=&quot;数据切分（Sharding）&quot;&gt;&lt;/a&gt;数据切分（Sharding）&lt;/h1&gt;&lt;p&gt;关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&quot;一-垂直（纵向）切分&quot;&gt;&lt;a href=&quot;#一-垂直（纵向）切分&quot; class=&quot;headerlink&quot; title=&quot;一. 垂直（纵向）切分&quot;&gt;&lt;/a&gt;一. 垂直（纵向）切分&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;垂直切分常见有&lt;strong&gt;垂直分库&lt;/strong&gt;和&lt;strong&gt;垂直分表&lt;/strong&gt;两种。  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt; 垂直分库：就是&lt;strong&gt;根据业务耦合性，将关联度低的不同表存储在不同的数据库。&lt;/strong&gt; 做法与大系统拆分为多个小系统类似，按业务分类进行独立划分。与”微服务治理”的做法相似，每个微服务使用单独的一个数据库。如图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82d7mboj30pe0gcagp.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;垂直分表：基于&lt;strong&gt;数据库中的”列”进行&lt;/strong&gt;，某个表字段较多，可以新建一张扩展表，&lt;strong&gt;将不经常用或字段长度较大的字段拆分出去到扩展表中。&lt;/strong&gt; 在字段很多的情况下（例如一个大表有100多个字段），通过”大表拆小表”，更便于开发与维护，也能避免跨页问题，MySQL 底层是通过数据页存储的，一条记录占用空间过大会导致跨页，造成额外的性能开销。另外数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82gyyg6j30ns0bgmyh.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;一-垂直（纵向）切分&quot;&gt;&lt;a href=&quot;#一-垂直（纵向）切分&quot; class=&quot;headerlink&quot; title=&quot;一. 垂直（纵向）切分&quot;&gt;&lt;/a&gt;一. 垂直（纵向）切分&lt;/h3&gt;
     
     </summary>
     
