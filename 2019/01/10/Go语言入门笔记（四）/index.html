@@ -19,7 +19,7 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
   </script>
 
   <meta name="description" content="字符串常用函数 字符串查找 strings.Contains()  1234567891011import (    &quot;fmt&quot;    &quot;strings&quot;)func main() &amp;#123;    s :&#x3D; &quot;hello world&quot;    fmt.Println(strings.Contains(s, &quot;hello&quot;), strings.Contains(s, &quot;?&quot;))&amp;#125;&#x2F;&#x2F; tr">
@@ -103,6 +103,9 @@
         <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
@@ -123,6 +126,30 @@
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
 
 
 
@@ -156,13 +183,16 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhangjiawang"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">Zhangjiawang</p>
   <div class="site-description" itemprop="description">This too shall pass.</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
@@ -173,6 +203,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
+          
         <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -180,6 +211,16 @@
 </div>
 
 
+  <div class="links-of-blogroll animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://gakkisama.com/" title="http:&#x2F;&#x2F;gakkisama.com&#x2F;" rel="noopener" target="_blank">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </section>
     </div>
@@ -281,7 +322,7 @@
 
 </li>
 </ol>
-<h2 id="结构体序列化和反序列化"><a href="#结构体序列化和反序列化" class="headerlink" title="结构体序列化和反序列化"></a>结构体序列化和反序列化</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/xml"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 结构体</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span> <span class="string">`xml:"name,attr"`</span></span><br><span class="line">	Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p := Person&#123;Name: <span class="string">"David"</span>, Age: <span class="number">18</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> person []<span class="keyword">byte</span></span><br><span class="line">	<span class="keyword">var</span> err error</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 序列化</span></span><br><span class="line">	<span class="keyword">if</span> person, err = xml.MarshalIndent(p,<span class="string">""</span>, <span class="string">" "</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="keyword">string</span>(person))</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 反序列化</span></span><br><span class="line">	<span class="keyword">var</span> f = <span class="built_in">new</span>(Person)</span><br><span class="line">	<span class="keyword">if</span> err = xml.Unmarshal(person, f); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结构体序列化和反序列化"><a href="#结构体序列化和反序列化" class="headerlink" title="结构体序列化和反序列化"></a>结构体序列化和反序列化</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">==<span class="string">"encoding/xml"</span></span><br><span class="line">==<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 结构体</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">==Name <span class="keyword">string</span> <span class="string">`xml:"name,attr"`</span></span><br><span class="line">==Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">==p := Person&#123;Name: <span class="string">"David"</span>, Age: <span class="number">18</span>&#125;</span><br><span class="line">==<span class="keyword">var</span> person []<span class="keyword">byte</span></span><br><span class="line">==<span class="keyword">var</span> err error</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 序列化</span></span><br><span class="line">==<span class="keyword">if</span> person, err = xml.MarshalIndent(p,<span class="string">""</span>, <span class="string">" "</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(<span class="keyword">string</span>(person))</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 反序列化</span></span><br><span class="line">==<span class="keyword">var</span> f = <span class="built_in">new</span>(Person)</span><br><span class="line">==<span class="keyword">if</span> err = xml.Unmarshal(person, f); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>以上输出结果为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Person&gt;</span><br><span class="line"> &lt;name&gt;David&lt;&#x2F;name&gt;</span><br><span class="line"> &lt;Age&gt;18&lt;&#x2F;Age&gt;</span><br><span class="line">&lt;&#x2F;Person&gt;</span><br><span class="line">&amp;&#123;David 18&#125;</span><br></pre></td></tr></table></figure>
 
@@ -362,7 +403,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Zhangjiawang</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
         
@@ -384,9 +425,6 @@
 <script src="/js/utils.js"></script>
 
 <script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
