@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
+
+  <meta name="description" content="数据切分（Sharding）关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。 数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分 一. 垂直（纵向）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库分库分表思路">
+<meta property="og:url" content="https://zhangjiawang.github.io/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据切分（Sharding）关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。 数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分 一. 垂直（纵向）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014303109-1826311184.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014417237-1672001359.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014833061-560502066.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514015805333-1409715906.png">
+<meta property="article:published_time" content="2020-05-24T04:00:07.000Z">
+<meta property="article:modified_time" content="2020-07-12T06:36:28.205Z">
+<meta property="article:author" content="Zhangjiawang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014303109-1826311184.png">
+
+<link rel="canonical" href="https://zhangjiawang.github.io/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据库分库分表思路 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据切分（Sharding）"><span class="nav-number">1.</span> <span class="nav-text">数据切分（Sharding）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-垂直（纵向）切分"><span class="nav-number">1.0.1.</span> <span class="nav-text">一. 垂直（纵向）切分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-水平（横向）切分"><span class="nav-number">1.0.2.</span> <span class="nav-text">二. 水平（横向）切分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-根据数值范围："><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1. 根据数值范围：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-根据数值取模："><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2. 根据数值取模：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhangjiawang</p>
+  <div class="site-description" itemprop="description">This too shall pass.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhangjiawang.github.io/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhangjiawang">
+      <meta itemprop="description" content="This too shall pass.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库分库分表思路
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-24 12:00:07" itemprop="dateCreated datePublished" datetime="2020-05-24T12:00:07+08:00">2020-05-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-12 14:36:28" itemprop="dateModified" datetime="2020-07-12T14:36:28+08:00">2020-07-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数据切分（Sharding）"><a href="#数据切分（Sharding）" class="headerlink" title="数据切分（Sharding）"></a>数据切分（Sharding）</h1><p>关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。</p>
+<p><strong>数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分</strong></p>
+<h3 id="一-垂直（纵向）切分"><a href="#一-垂直（纵向）切分" class="headerlink" title="一. 垂直（纵向）切分"></a>一. 垂直（纵向）切分</h3><blockquote>
+<p>垂直切分常见有<strong>垂直分库</strong>和<strong>垂直分表</strong>两种。  </p>
+</blockquote>
+<p> 垂直分库：就是<strong>根据业务耦合性，将关联度低的不同表存储在不同的数据库。</strong> 做法与大系统拆分为多个小系统类似，按业务分类进行独立划分。与”微服务治理”的做法相似，每个微服务使用单独的一个数据库。如图：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014303109-1826311184.png" alt=""></p>
+<p>垂直分表：基于<strong>数据库中的”列”进行</strong>，某个表字段较多，可以新建一张扩展表，<strong>将不经常用或字段长度较大的字段拆分出去到扩展表中。</strong> 在字段很多的情况下（例如一个大表有100多个字段），通过”大表拆小表”，更便于开发与维护，也能避免跨页问题，MySQL 底层是通过数据页存储的，一条记录占用空间过大会导致跨页，造成额外的性能开销。另外数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014417237-1672001359.png" alt=""></p>
+<a id="more"></a>
+
+<p>优点：</p>
+<ul>
+<li>解决业务系统层面的耦合，业务清晰</li>
+<li>与微服务的治理类似，也能对不同业务的数据进行分级管理、维护、监控、扩展等</li>
+<li>高并发场景下，垂直切分一定程度的提升IO、数据库连接数、单机硬件资源的瓶颈</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>部分表无法join，只能通过接口聚合方式解决，提升了开发的复杂度</li>
+<li>分布式事务处理复杂</li>
+<li>依然存在单表数据量过大的问题（需要水平切分）</li>
+</ul>
+<h3 id="二-水平（横向）切分"><a href="#二-水平（横向）切分" class="headerlink" title="二. 水平（横向）切分"></a>二. 水平（横向）切分</h3><p>当一个应用难以再细粒度的垂直切分，或切分后数据量行数巨大，存在单库读写、存储性能瓶颈，这时候就需要进行水平切分了。</p>
+<p>水平切分分为<strong>库内分表</strong>和<strong>分库分表</strong>，是根据表内数据内在的逻辑关系，将同一个表按不同的条件分散到多个数据库或多个表中，每个表中只包含一部分数据，从而使得单个表的数据量变小，达到分布式的效果。如图所示：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514014833061-560502066.png" alt=""></p>
+<blockquote>
+<p>库内分表只解决了单一表数据量过大的问题，但没有将表分布到不同机器的库上，因此对于减轻 MySql 数据库压力来说，帮助不是很大，大家还是竞争同一物理机的 CPU、内存、网络 IO，最好通过分库分表来解决。</p>
+</blockquote>
+<p>水平切分的优点：</p>
+<ul>
+<li>不存在单表数据量大、高并发的性能瓶颈，提升系统稳定性和负载能力。</li>
+<li>应用端改动小，不需要拆分业务模块。</li>
+</ul>
+<p>水平切分的缺点：</p>
+<ul>
+<li>跨分片的事务一致性难以保证</li>
+<li>跨库的 join 关联查询性能差</li>
+<li>数据多次扩展和维护量极其大</li>
+</ul>
+<blockquote>
+<p>水平切分后同一张表会出现在多个数据库/表中，每个库/表的内容不同。几种典型的数据分片规则为：</p>
+</blockquote>
+<h4 id="1-根据数值范围："><a href="#1-根据数值范围：" class="headerlink" title="1. 根据数值范围："></a>1. 根据数值范围：</h4><p><strong>按照时间区间或 ID 区间来分</strong>，例如：按日期将不同月甚至不同日的数据分散到不同的库中；将 userId 为 1 ~ 9999 的记录分到第一个库，10000 ~ 20000 的记录分到第二个库，以此类推。某种意义上，某些系统使用的“冷热数据分离”，将一些使用较少（不活跃）的历史数据迁移到其他库，业务上只提供热点数据的查询，也是类似的实践。</p>
+<p>优点：</p>
+<ul>
+<li>单表大小可控</li>
+<li>天然便于水平扩展，后期如果想对整个分片集群扩容时，只需要添加节点即可，无需对其他分片的数据进行迁移</li>
+<li>使用分片字段进行范围查询时，连续分片可快速定位分片进行快速查询，有效避免分片查询问题。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>热点数据成为性能瓶颈。连续分片可能存在数据热点，例如按时间字段分片，有些分片存储最近时间段内的数据，可能会被频繁的读写，而有些分片存储的历史数据，则很少被查询。</li>
+</ul>
+<h4 id="2-根据数值取模："><a href="#2-根据数值取模：" class="headerlink" title="2. 根据数值取模："></a>2. 根据数值取模：</h4><p><strong>一般采用 hash 取模 mod 的切分方式</strong>，例如：将 Customer 表根据 cusno 字段切分到 4 个库中，余数为 0 的放在第一个库，余数为 1 的放在第二个库，一次类推。这样同一个用户的数据会分散到同一个库中，如果查询条件带有 cuson 字段，则可明确定位到相应库去查询</p>
+<p>优点：</p>
+<ul>
+<li>数据分片相对比较均匀，不容易出现热点和并发访问的瓶颈</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>后期分片集群扩容时，需要迁移旧的数据，（使用一致性 hash 算法能较好的避免这个问题）</p>
+</li>
+<li><p>容易面临跨分片查询的复杂问题。比如上例中，如果频繁用到的查询条件中的不带 cuson 时，将会导致无法定位数据库，从而需要同时项 4 个库发起查询，再在内存中合并数据，取最小集返回给应用，分库反而成为拖累。</p>
+<p>  <img src="https://images2018.cnblogs.com/blog/1278254/201805/1278254-20180514015805333-1409715906.png" alt=""></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/19/mac-vagrant-nfs-%E6%8C%82%E8%BD%BD/" rel="prev" title="mac vagrant nfs 挂载">
+      <i class="fa fa-chevron-left"></i> mac vagrant nfs 挂载
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/24/Docker/" rel="next" title="Docker 详细教程">
+      Docker 详细教程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhangjiawang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

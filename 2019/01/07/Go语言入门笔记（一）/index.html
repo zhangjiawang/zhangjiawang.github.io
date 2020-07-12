@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}}};
+  </script>
+
+  <meta name="description" content="基础语法 import 原理 main 包中导入的包会被顺序导入 导入的包中依赖其他包，会首先导入依赖包，并初始化依赖包中的常量与变量，如果依赖包中有 init()，会自动执行 init() 所有包导入完成后会对 main 包中的变量与常量进行初始化，然后执行 init()，最后执行 main() 一个包被导入多次则该包只会被导入一次   import 别名用法 别名 &quot;package">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go语言入门笔记（一）">
+<meta property="og:url" content="https://zhangjiawang.github.io/2019/01/07/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基础语法 import 原理 main 包中导入的包会被顺序导入 导入的包中依赖其他包，会首先导入依赖包，并初始化依赖包中的常量与变量，如果依赖包中有 init()，会自动执行 init() 所有包导入完成后会对 main 包中的变量与常量进行初始化，然后执行 init()，最后执行 main() 一个包被导入多次则该包只会被导入一次   import 别名用法 别名 &quot;package">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-07T13:21:31.000Z">
+<meta property="article:modified_time" content="2020-07-12T06:36:28.209Z">
+<meta property="article:author" content="Zhangjiawang">
+<meta property="article:tag" content="Go">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zhangjiawang.github.io/2019/01/07/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Go语言入门笔记（一） | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础语法"><span class="nav-number">1.</span> <span class="nav-text">基础语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量与常量"><span class="nav-number">3.</span> <span class="nav-text">变量与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">3.1.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">3.2.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊常量-iota-的使用"><span class="nav-number">3.3.</span> <span class="nav-text">特殊常量 iota 的使用</span></a></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhangjiawang</p>
+  <div class="site-description" itemprop="description">This too shall pass.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zhangjiawang.github.io/2019/01/07/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhangjiawang">
+      <meta itemprop="description" content="This too shall pass.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go语言入门笔记（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-07 21:21:31" itemprop="dateCreated datePublished" datetime="2019-01-07T21:21:31+08:00">2019-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-12 14:36:28" itemprop="dateModified" datetime="2020-07-12T14:36:28+08:00">2020-07-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><ol>
+<li>import 原理<ul>
+<li>main 包中导入的包会被顺序导入</li>
+<li>导入的包中依赖其他包，会首先导入依赖包，并初始化依赖包中的常量与变量，如果依赖包中有 <code>init()</code>，会自动执行 <code>init()</code></li>
+<li>所有包导入完成后会对 main 包中的变量与常量进行初始化，然后执行 <code>init()</code>，最后执行 <code>main()</code></li>
+<li>一个包被导入多次则该包只会被导入一次</li>
+</ul>
+</li>
+<li>import 别名用法<ul>
+<li><code>别名 &quot;package&quot;</code></li>
+<li><code>. &quot;package&quot;</code> 调用该包中函数时可以省略前缀</li>
+<li><code>_ &quot;package&quot;</code> 只执行包中 <code>init()</code> 函数，无法调用包中其他函数</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ol>
+<li>整型</li>
+<li>浮点型</li>
+<li>字符串型：<code>string</code> 统一编码为 <code>UTF-8</code></li>
+<li>布尔型：<code>true</code> 或 <code>false</code></li>
+<li>派生类型</li>
+</ol>
+<p><strong>值类型默认为0，布尔类型默认为 false ，字符串类型默认为空字符串</strong></p>
+<p>整型：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>uint8</strong> <em>无符号 8 位整型 (0 到 255)</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>uint16</strong> <em>无符号 16 位整型 (0 到 65535)</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>uint32</strong> <em>无符号 32 位整型 (0 到 4294967295)</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>uint64</strong> <em>无符号 64 位整型 (0 到 18446744073709551615)</em></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>int8</strong> <em>有符号 8 位整型 (-128 到 127)</em></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>int16</strong> <em>有符号 16 位整型 (-32768 到 32767)</em></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>int32</strong> <em>有符号 32 位整型 (-2147483648 到 2147483647)</em></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>int64</strong> <em>有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</em></td>
+</tr>
+</tbody></table>
+<p>浮点型：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>float32</strong> <em>IEEE-754 32 位浮点型数</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>float64</strong> <em>IEEE-754 64 位浮点型数</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>complex64</strong> <em>32 位实数和虚数</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>complex128</strong> <em>64 位实数和虚数</em></td>
+</tr>
+</tbody></table>
+<p>其他数字类型：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>byte</strong> <em>类似 uint8</em></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>rune</strong> <em>类似 int32</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>uint</strong> <em>32 或 64 位</em></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>int</strong> <em>与 uint 一样大小</em></td>
+</tr>
+</tbody></table>
+<p>派生类型：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>指针类型（Pointer）</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>数组类型</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>结构化类型（struct）</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Channel 类型（chan</strong>）</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>函数类型（func）</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>切片类型（slice）</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>接口类型（interface）</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Map 类型（map）</strong></td>
+</tr>
+</tbody></table>
+<h2 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ol>
+<li>单个变量的声明和赋值<ul>
+<li>声明：<code>var i int</code> 「var 变量名称 变量类型」</li>
+<li>赋值：<code>i = 1</code> 「变量名称 : 值、表达式、函数等」</li>
+<li>声明和赋值同时进行：<code>var i int = 1</code>「var 变量名称 变量类型 = 值、表达式、函数等」</li>
+<li>分组声明格式：<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    i <span class="keyword">int</span></span><br><span class="line">    j <span class="keyword">float32</span></span><br><span class="line">    k <span class="keyword">string</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>同时声明多个变量和赋值：<code>var a,b,c int = 1,2,3</code> 或 <code>a,b,c := 1,2,3</code></li>
+<li>全局变量的声明必须使用 <code>var</code> 关键词，局部变量可省略</li>
+<li>变量的类型转换只能发生在兼容类型之间、必须是显式的</li>
+<li>变量的可见性规则<ul>
+<li>大写字母开头的变量可以再其他包中读取，是公用变量</li>
+<li>小写字母开头的变量其他包中不可读取，是私有变量</li>
+</ul>
+</li>
+</ol>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><ol>
+<li><p>常量定义形式，常量类型范围</p>
+<ul>
+<li>显式：<code>const identifier [type] = value</code> </li>
+<li>隐式：<code>const identifier = value</code> (通常叫无类型常量)</li>
+</ul>
+<p> <strong>可使用分组声明、单行声明格式</strong></p>
+</li>
+<li><p>常量可以使用内置表达式定义，例如 <code>len()</code> <code>unsafe.Sizeof()</code> 等</p>
+</li>
+<li><p>常量范围目前只支持布尔型、数字型（整数型、浮点型和复数）和字符串型</p>
+</li>
+</ol>
+<h3 id="特殊常量-iota-的使用"><a href="#特殊常量-iota-的使用" class="headerlink" title="特殊常量 iota 的使用"></a>特殊常量 iota 的使用</h3><ol>
+<li><code>iota</code> 只能在常量定义中使用</li>
+<li><code>iota</code> 在 <code>const</code> 关键字出现的时候会被重置为 0</li>
+<li><code>const</code> 中每新增一行常量声明将使 <code>iota</code> 计数一次</li>
+<li><code>iota</code> 常见使用法<ul>
+<li>跳值使用法 <strong><em>使用 _ 声明常量来达到跳值的目的</em></strong><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a = <span class="literal">iota</span></span><br><span class="line">    b = <span class="literal">iota</span></span><br><span class="line">    _</span><br><span class="line">    _</span><br><span class="line">    c = <span class="literal">iota</span>    <span class="comment">// c = 4</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>插队使用法<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a = <span class="literal">iota</span></span><br><span class="line">    b = <span class="number">3.14</span></span><br><span class="line">    c = <span class="literal">iota</span>    <span class="comment">// c = 2</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>表达式隐式使用法<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a = <span class="literal">iota</span> * <span class="number">2</span>    <span class="comment">// a = 0</span></span><br><span class="line">    b = <span class="literal">iota</span> * <span class="number">3</span>    <span class="comment">// b = 3</span></span><br><span class="line">    c               <span class="comment">// c = 6</span></span><br><span class="line">    d               <span class="comment">// d = 9</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li>单行使用法<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    a, b = <span class="literal">iota</span> + <span class="number">1</span>, <span class="literal">iota</span> + <span class="number">3</span> </span><br><span class="line">    c, d</span><br><span class="line">    e = <span class="literal">iota</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// a = 1, b = 3, c = 2, d = 4, e = 2</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Go/" rel="tag"># Go</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/09/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="Go语言入门笔记（二）">
+      Go语言入门笔记（二） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhangjiawang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
