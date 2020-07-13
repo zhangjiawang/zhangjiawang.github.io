@@ -19,22 +19,22 @@
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"zhangjiawang.github.io","root":"/","scheme":"Muse","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="最近遇到一个小问题，但挺有趣，记录一下 首先，设置一个 cookie    1234&lt;?php        setcookie(&#39;name&#39;, &#39;jojo&#39;);        echo $_COOKIE[&#39;name&#39;];?&gt;   当首次访问此页面时，页面报错">
 <meta property="og:type" content="article">
 <meta property="og:title" content="setcookie刷新后才生效问题">
 <meta property="og:url" content="https://zhangjiawang.github.io/2019/01/18/setcookie%E5%88%B7%E6%96%B0%E5%90%8E%E6%89%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/index.html">
-<meta property="og:site_name" content="&#x3D;。&#x3D;">
+<meta property="og:site_name" content="夏虫不可语冰">
 <meta property="og:description" content="最近遇到一个小问题，但挺有趣，记录一下 首先，设置一个 cookie    1234&lt;?php        setcookie(&#39;name&#39;, &#39;jojo&#39;);        echo $_COOKIE[&#39;name&#39;];?&gt;   当首次访问此页面时，页面报错">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo88pw5orj30ee01w3yi.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo881wfeij30s30cpq4z.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo87rgkjpj30rw0dgtau.jpg">
 <meta property="article:published_time" content="2019-01-18T13:21:31.000Z">
-<meta property="article:modified_time" content="2020-07-12T08:04:02.793Z">
-<meta property="article:author" content="Zhangjiawang">
+<meta property="article:modified_time" content="2020-07-13T04:14:20.637Z">
+<meta property="article:author" content="Zhang">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="cookie">
 <meta property="article:tag" content="session">
@@ -54,7 +54,7 @@
   };
 </script>
 
-  <title>setcookie刷新后才生效问题 | =。=</title>
+  <title>setcookie刷新后才生效问题 | 夏虫不可语冰</title>
   
 
 
@@ -97,7 +97,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="=。=" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="夏虫不可语冰" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -119,7 +119,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">=。=</h1>
+      <h1 class="site-title">夏虫不可语冰</h1>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -194,10 +194,10 @@
 
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Zhangjiawang"
+    <img class="site-author-image" itemprop="image" alt="Zhang"
       src="/images/avatar.gif">
-  <p class="site-author-name" itemprop="name">Zhangjiawang</p>
-  <div class="site-description" itemprop="description">This too shall pass.</div>
+  <p class="site-author-name" itemprop="name">Zhang</p>
+  <div class="site-description" itemprop="description">This too shall pass. 一切终将过去</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -226,7 +226,7 @@
 
   <div class="links-of-blogroll animated">
     <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
-      友情链接
+      欢迎访问
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
@@ -268,12 +268,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Zhangjiawang">
-      <meta itemprop="description" content="This too shall pass.">
+      <meta itemprop="name" content="Zhang">
+      <meta itemprop="description" content="This too shall pass. 一切终将过去">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="=。=">
+      <meta itemprop="name" content="夏虫不可语冰">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -402,7 +402,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Zhangjiawang</span>
+  <span class="author" itemprop="copyrightHolder">Zhang</span>
 </div>
   <div class="powered-by">
     <i class="fa fa-user-md"></i>
@@ -460,8 +460,6 @@
 
   
 
-  
-    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
   
 </body>
 </html>

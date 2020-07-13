@@ -1658,9 +1658,6 @@ pre code {
 .back-to-top {
   font-size: 12px;
 }
-.back-to-top span {
-  display: none;
-}
 .back-to-top {
   bottom: -100px;
   box-sizing: border-box;
@@ -1673,7 +1670,7 @@ pre code {
   position: fixed;
   z-index: 1300;
   left: 30px;
-  width: 24px;
+  width: initial;
 }
 @media (max-width: 991px) {
   .back-to-top {
@@ -1760,6 +1757,12 @@ pre code {
   color: #fc6423;
   border-bottom: none;
   border-bottom: 1px solid #fc6423;
+}
+.post-block {
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
 .posts-collapse {
   margin-left: 35px;
@@ -2600,7 +2603,7 @@ ul.breadcrumb li + li:last-child {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #95ff33;
+  background: #ffb5ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
