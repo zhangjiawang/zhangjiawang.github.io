@@ -455,7 +455,8 @@
 <p>保存后，使用命令 <code>vagrant reload</code> 重启虚拟机后才会生效，期间会修改 MAC OX 的 <code>/etc/exports</code> 文件。会提示输入 mac 账号的密码。输入即可！ </p>
 ]]></content>
       <tags>
-        <tag>Mac Vagrant</tag>
+        <tag>Mac</tag>
+        <tag>Vagrant</tag>
       </tags>
   </entry>
   <entry>
@@ -531,6 +532,9 @@
       <categories>
         <category>mysql</category>
       </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
   </entry>
   <entry>
     <title>Docker 详细教程</title>
@@ -951,7 +955,8 @@
         <category>docker</category>
       </categories>
       <tags>
-        <tag>docker 容器</tag>
+        <tag>docker</tag>
+        <tag>容器</tag>
       </tags>
   </entry>
   <entry>
@@ -1786,7 +1791,8 @@
         <category>redis</category>
       </categories>
       <tags>
-        <tag>redis 缓存</tag>
+        <tag>redis</tag>
+        <tag>缓存</tag>
       </tags>
   </entry>
   <entry>
