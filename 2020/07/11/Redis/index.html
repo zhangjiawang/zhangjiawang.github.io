@@ -82,7 +82,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn81ev2zyj31800fgq4b.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn8oxlbk9j31f00nowh8.jpg">
 <meta property="article:published_time" content="2020-07-11T11:26:39.000Z">
-<meta property="article:modified_time" content="2020-07-12T09:07:46.439Z">
+<meta property="article:modified_time" content="2020-07-14T15:38:02.105Z">
 <meta property="article:author" content="Zhang">
 <meta property="article:tag" content="redis 缓存">
 <meta name="twitter:card" content="summary">
@@ -1107,7 +1107,7 @@
 <h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><blockquote>
 <p>概念</p>
 </blockquote>
-<p>缓存穿透的概念跟简单，客户端发起请求查询一个数据，发现 redis 内存数据库中没有，也就是缓存没有命中，于是向持久层数据库发起查询，发现也没有，查询失败。当用户很多的时候回，大量缓存没有命中，于是都去请求了持久层数据库，这样就给持久层数据库造成了跟大的压力，这时候就相当于出现了缓存穿透</p>
+<p>缓存穿透的概念很简单，客户端发起请求查询一个数据，发现 redis 内存数据库中没有，也就是缓存没有命中，于是向持久层数据库发起查询，发现也没有，查询失败。当用户很多的时候回，大量缓存没有命中，于是都去请求了持久层数据库，这样就给持久层数据库造成了跟大的压力，这时候就相当于出现了缓存穿透</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn6x8yiu1j313q0mmmys.jpg" alt="image-20200711180527831"></p>
 <blockquote>
 <p>解决方案</p>

@@ -1707,7 +1707,7 @@
 <h2 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h2><blockquote>
 <p>概念</p>
 </blockquote>
-<p>缓存穿透的概念跟简单，客户端发起请求查询一个数据，发现 redis 内存数据库中没有，也就是缓存没有命中，于是向持久层数据库发起查询，发现也没有，查询失败。当用户很多的时候回，大量缓存没有命中，于是都去请求了持久层数据库，这样就给持久层数据库造成了跟大的压力，这时候就相当于出现了缓存穿透</p>
+<p>缓存穿透的概念很简单，客户端发起请求查询一个数据，发现 redis 内存数据库中没有，也就是缓存没有命中，于是向持久层数据库发起查询，发现也没有，查询失败。当用户很多的时候回，大量缓存没有命中，于是都去请求了持久层数据库，这样就给持久层数据库造成了跟大的压力，这时候就相当于出现了缓存穿透</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn6x8yiu1j313q0mmmys.jpg" alt="image-20200711180527831"></p>
 <blockquote>
 <p>解决方案</p>
@@ -1792,10 +1792,17 @@
   <entry>
     <title>理解DevOps思想</title>
     <url>/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</url>
-    <content><![CDATA[<h1 id="什么是-DevOps"><a href="#什么是-DevOps" class="headerlink" title="什么是 DevOps"></a>什么是 DevOps</h1><p>DevOps（Development Oprations）是一种思想或方法论，它涵盖开发、测试、运维的整个过程</p>
-<p>DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更，软件继承</p>
-<p>使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件</p>
+    <content><![CDATA[<h1 id="什么是-DevOps"><a href="#什么是-DevOps" class="headerlink" title="什么是 DevOps"></a>什么是 DevOps</h1><ol>
+<li><p>DevOps（Development Oprations）是一种思想或方法论，它涵盖开发、测试、运维的整个过程</p>
+</li>
+<li><p>DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更、软件继承</p>
+</li>
+<li><p>使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件</p>
+</li>
+</ol>
 <p><img src="https://i.loli.net/2020/07/13/qEfd6tp2jisCOJX.jpg" alt="timg (1)"></p>
+<a id="more"></a>
+
 <p>公司项目开发的大概流程，看看是如何一步一步操作的：</p>
 <p><img src="https://i.loli.net/2020/07/14/JpYiw7f3maIHcFB.png" alt="image-20200714183951928"></p>
 <p>Product Backlog 源自于 Scrum 方法，是指产品待办事项的集合，其事务有优先级判断，先处理优先级高的事项</p>
@@ -1810,7 +1817,7 @@
 <p>==如果你是一名开发工程师：学习 DevOps 让你成为更加优秀的工程师==</p>
 <p>==如果你是一名运维工程师：学习 DevOps 必将简化你的工作流程，提高你的工作效率==</p>
 <p>==如果你是一名架构师：DevOps 是你工作实践中必须拥有的能力==</p>
-<p>====如果你是一名跳槽者：了解 DevOps 必将有助于找到更高薪的工作==</p>
+<p>==如果你是一名跳槽者：了解 DevOps 必将有助于找到更高薪的工作==</p>
 <blockquote>
 <blockquote>
 <p>该笔记整理优化与 B 站 up 主：狂神说Java</p>

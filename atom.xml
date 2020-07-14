@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-14T14:44:30.655Z</updated>
+  <updated>2020-07-14T15:40:36.268Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -21,17 +21,19 @@
     <link href="https://zhangjiawang.github.io/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/"/>
     <id>https://zhangjiawang.github.io/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</id>
     <published>2020-07-13T07:48:23.000Z</published>
-    <updated>2020-07-14T14:44:30.655Z</updated>
+    <updated>2020-07-14T15:40:36.268Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;什么是-DevOps&quot;&gt;&lt;a href=&quot;#什么是-DevOps&quot; class=&quot;headerlink&quot; title=&quot;什么是 DevOps&quot;&gt;&lt;/a&gt;什么是 DevOps&lt;/h1&gt;&lt;p&gt;DevOps（Development
-        
-      
+      &lt;h1 id=&quot;什么是-DevOps&quot;&gt;&lt;a href=&quot;#什么是-DevOps&quot; class=&quot;headerlink&quot; title=&quot;什么是 DevOps&quot;&gt;&lt;/a&gt;什么是 DevOps&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;DevOps（Development Oprations）是一种思想或方法论，它涵盖开发、测试、运维的整个过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更、软件继承&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2020/07/13/qEfd6tp2jisCOJX.jpg&quot; alt=&quot;timg (1)&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -44,7 +46,7 @@
     <link href="https://zhangjiawang.github.io/2020/07/11/Redis/"/>
     <id>https://zhangjiawang.github.io/2020/07/11/Redis/</id>
     <published>2020-07-11T11:26:39.000Z</published>
-    <updated>2020-07-12T09:07:46.439Z</updated>
+    <updated>2020-07-14T15:38:02.105Z</updated>
     
     <summary type="html">
     
