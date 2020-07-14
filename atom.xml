@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-12T09:07:46.439Z</updated>
+  <updated>2020-07-13T07:59:26.786Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>理解DevOps思想</title>
+    <link href="https://zhangjiawang.github.io/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/"/>
+    <id>https://zhangjiawang.github.io/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</id>
+    <published>2020-07-13T07:48:23.000Z</published>
+    <updated>2020-07-13T07:59:26.786Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;什么是DevOps&quot;&gt;&lt;a href=&quot;#什么是DevOps&quot; class=&quot;headerlink&quot; title=&quot;什么是DevOps&quot;&gt;&lt;/a&gt;什么是DevOps&lt;/h1&gt;&lt;p&gt;DevOps
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Redis 教程</title>

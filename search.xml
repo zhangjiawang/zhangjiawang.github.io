@@ -1789,4 +1789,14 @@
         <tag>redis 缓存</tag>
       </tags>
   </entry>
+  <entry>
+    <title>理解DevOps思想</title>
+    <url>/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</url>
+    <content><![CDATA[<h1 id="什么是DevOps"><a href="#什么是DevOps" class="headerlink" title="什么是DevOps"></a>什么是DevOps</h1><p>DevOps 是一种思想或方法论，它涵盖开发、测试、运维的整个过程</p>
+<p>DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更，软件继承</p>
+<p>使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件</p>
+<p><img src="https://i.loli.net/2020/07/13/qEfd6tp2jisCOJX.jpg" alt="timg (1)"></p>
+<p>公司项目开发的大概流程，看看是如何一步一步操作的：</p>
+]]></content>
+  </entry>
 </search>
