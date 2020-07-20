@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zhangjiawang.github.io/2020/07/11/Redis/</loc>
+    
+    <lastmod>2020-07-20T08:13:55.895Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://zhangjiawang.github.io/2020/06/24/Docker/</loc>
     
-    <lastmod>2020-07-14T16:02:26.091Z</lastmod>
+    <lastmod>2020-07-20T08:13:52.902Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>https://zhangjiawang.github.io/2019/09/19/mac-vagrant-nfs-%E6%8C%82%E8%BD%BD/</loc>
     
     <lastmod>2020-07-14T16:01:57.922Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://zhangjiawang.github.io/2020/07/11/Redis/</loc>
-    
-    <lastmod>2020-07-14T16:01:47.456Z</lastmod>
     
   </url>
   
