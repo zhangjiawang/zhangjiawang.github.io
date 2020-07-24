@@ -82,7 +82,7 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn81ev2zyj31800fgq4b.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggn8oxlbk9j31f00nowh8.jpg">
 <meta property="article:published_time" content="2020-07-11T11:26:39.000Z">
-<meta property="article:modified_time" content="2020-07-20T08:13:55.895Z">
+<meta property="article:modified_time" content="2020-07-24T17:31:58.817Z">
 <meta property="article:author" content="Zhang">
 <meta property="article:tag" content="redis">
 <meta property="article:tag" content="缓存">
@@ -463,7 +463,7 @@
 <h1 id="Redis-入门"><a href="#Redis-入门" class="headerlink" title="Redis 入门"></a>Redis 入门</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
 <p>Redis 是什么？</p>
 </blockquote>
-<p>Redis（==Re==mote ==Di==ctionary ==S==erver )，即远程字典服务。是一个开源的使用ANSI <a href="https://baike.baidu.com/item/C语言" target="_blank" rel="noopener">C语言</a>编写、支持网络、可基于内存亦可持久化的日志型、Key-Value<a href="https://baike.baidu.com/item/数据库/103728" target="_blank" rel="noopener">数据库</a>，并提供多种语言的API</p>
+<p>Redis（<span style='color: red'>Re</span>mote <span style='color: red'>Di</span>ctionary <span style='color: red'>S</span>erver )，即远程字典服务。是一个开源的使用ANSI <a href="https://baike.baidu.com/item/C语言" target="_blank" rel="noopener">C语言</a>编写、支持网络、可基于内存亦可持久化的日志型、Key-Value<a href="https://baike.baidu.com/item/数据库/103728" target="_blank" rel="noopener">数据库</a>，并提供多种语言的API</p>
 <p>与 memcached 一样，为了保证效率，数据都是缓存在内存中。区别的是 redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave (主从)同步。</p>
 <p>免费和开源！当下最热门的 NoSQL 技术之一，也被人们成为结构化数据库</p>
 <blockquote>
@@ -483,7 +483,7 @@
 <p>3、集群、事务</p>
 <p>4、…………</p>
 <blockquote>
-<p>==Redis 推荐在 Linux 服务器上搭建==</p>
+<p><span style='color: red'>Redis 推荐在 Linux 服务器上搭建</span></p>
 </blockquote>
 <p>官网：<a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a></p>
 <p>中文网：<a href="http://redis.cn/" target="_blank" rel="noopener">http://redis.cn/</a></p>
@@ -533,7 +533,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379[3]&gt; select 0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) <span class="string">"mylist:&#123;tag&#125;"</span></span><br><span class="line">2) <span class="string">"counter:&#123;tag&#125;:__rand_int__"</span></span><br><span class="line">3) <span class="string">"key:&#123;tag&#125;:__rand_int__"</span></span><br><span class="line">127.0.0.1:6379&gt; select 3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[3]&gt; flushall</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[3]&gt; select 0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">(empty array)</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>==Redis 是单线程的！==</p>
+<p><span style='color: red'>Redis 是单线程的！</span></p>
 </blockquote>
 <p>Redis 是基于内存操作的，CPU 不是 Redis 的性能瓶颈，Redis 的瓶颈是在于机器的内存和网络的带宽。所以就使用了单线程</p>
 <p><strong>Redis 单线程为什么这么快？</strong></p>
@@ -679,7 +679,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将二维的经纬度，转换为一维的字符串，如果连个字符串越接近，那么距离越近</span></span><br><span class="line">127.0.0.1:6379&gt; GEOHASH china:city beijing shanghai</span><br><span class="line">1) <span class="string">"wx4fbxxfke0"</span></span><br><span class="line">2) <span class="string">"wtw3sj5zbj0"</span></span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>==geo 底层就是基于 zset，可以通过 zset 命令操作 geo==</strong></p>
+<p><strong><span style='color: red'>geo 底层就是基于 zset，可以通过 zset 命令操作 geo</span></strong></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrange china:city 0 -1</span><br><span class="line">1) <span class="string">"chongqing"</span></span><br><span class="line">2) <span class="string">"xian"</span></span><br><span class="line">3) <span class="string">"shenzhen"</span></span><br><span class="line">4) <span class="string">"hangzhou"</span></span><br><span class="line">5) <span class="string">"shanghai"</span></span><br><span class="line">6) <span class="string">"beijing"</span></span><br><span class="line">127.0.0.1:6379&gt; zrem china:city beijing</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
@@ -722,7 +722,7 @@
 <p><strong>持久性（Durability）</strong></p>
 <p>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响</p>
 <blockquote>
-<p>==redis 的事务没有隔离性的概念==</p>
+<p><span style='color: red'>redis 的事务没有隔离性的概念</span></p>
 </blockquote>
 <p>redis 事务的特性：</p>
 <p>一次性、顺序性、排他性</p>
@@ -806,7 +806,7 @@
 <p>在指定的时间间隔内将内存中的数据集快照写入磁盘，也就是行话讲的 Snapshot 快照，它恢复时是将快照中的文件直接读到内存中。</p>
 <p>redis 会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。整个过程中，主进程不进行任何 IO 操作，这就确保了极高的性能。如果需要大规模数据的恢复，且对于数据恢复的完整性不是很敏感，那么 RDB 方式要比 ROF 方式更高效，RBD 的缺点就是最后一次持久化后的数据可能丢失，默认的就是 RDB，一般情况下不需要修改这个配置</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmyuu3rlsj31j20tcjvj.jpg" alt="image-20200711132619528"></p>
-<p>==rdb 保存的文件：dump.rdb==</p>
+<p><span style='color: red'>rdb 保存的文件：dump.rdb</span></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggmy03hvf6j30ho03874h.jpg" alt="image-20200711125649417"></p>
 <blockquote>
 <p>触发机制</p>
@@ -850,7 +850,7 @@
 <p>AOF 是什么</p>
 </blockquote>
 <p> 以日志的形式记录每个写操作，将 redis 执行过的所有执行记录下来（读操作不记录），只许追加文件但不可以改写文件，redis 启动时会读取该文件重新构建数据。换言之，redis 重启就是根据日志文件的内容将指令从前往后执行一次，完成数据的恢复工作</p>
-<p>==AOF 保存的文件：appendonly.aof==</p>
+<p><span style='color: red'>AOF 保存的文件：appendonly.aof</span></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmz0nh874j313l0u0wm0.jpg" alt="image-20200711133157744"></p>
 <p>默认是不开启的，需要手动开启 <code>appendonly yes</code></p>
 <p>重启 redis 即可生效</p>
@@ -895,13 +895,13 @@
 <p>Aof 的规则就是无限追加，文件就会越来越大</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmzn0rujmj31120qidlz.jpg" alt="image-20200711135327328"></p>
 <p>文件大于 64 M，就会 fork 一个新的进程重写文件</p>
-<p>==<strong>RBD 和 ROF 的对比</strong>==</p>
+<p><strong><span style='color: red'>RBD 和 ROF 的对比</span></strong></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmzjkm4e5j30h708cdg1.jpg" alt="b5718f91883d9f0e90144e681d1c2ea7"></p>
 <p><strong>扩展：</strong></p>
 <ol>
 <li>RDB 持久化方式能够在指定的时间间隔内对你的数据进行快照存储</li>
 <li>AOF 持久化方式记录每次对服务器写的操作，当服务器重启时会重新执行这些命令来回复数据，AOF 命令以 Reids 协议追加保存每次写的操作到文件末尾（redis 还能对 aof 文件进行后台重写，使得 aof 文件的体积不至于过大）</li>
-<li>==如果只做缓存，只希望数据在服务器运行的时候存在，就不使用任何持久化==</li>
+<li><span style='color: red'>如果只做缓存，只希望数据在服务器运行的时候存在，就不使用任何持久化</span></li>
 <li>同时开启两种持久化方式<ol>
 <li>这种情况下，当 redis 重启的时候会优先载入 aof 文件来恢复原始的数据，因为在通常的情况下 aof 文件保存的数据集要比 rdb 文件保存的数据集更加完整</li>
 <li>rdb 的数据不实时，同时使用两者时服务器重启也会只找 aof 文件。那是不是只使用 aof 呢？建议不要，因为 rdb 更适合用于备份数据库（aof 在不断变化不好备份），快速重启，而且不会有 aof 可能潜在的bug，留着作为一个万一的手段</li>
@@ -974,8 +974,8 @@
 <p>通过 PUBLISH 命令向订阅者发送消息，redis-server 会使用给定的 channel 作为键，在它维护的字典中查找记录了订阅这个 channel 的所有客户端的链表，遍历这个链表，将消息发布给所有订阅者</p>
 <p>Pub/Sub 从字面上理解就是发布（Publish）和订阅（Subscribe），在 Redis 中，你可以设定对某一个 key 值进行消息发布及消息订阅，当一个 key 值进行消息发布后，所有订阅它的客户端都会收到对应的消息。这一功能最明显的用法就是用作实时消息系统，比如普通的即时聊天、群聊等</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggn1ltbucpj314g0qmn1l.jpg" alt="image-20200711150129632"></p>
-<h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>主从复制，是指将一台 Redis 服务器的数据，复制到其他的 Redis 服务器。前者称为主节点（master），后者称为从节点（slave）。==数据的复制是单向的，只能由主节点到从节点==。Master 以写为主，Slave 以读为主</p>
-<p>==默认情况下，每台 Redis 服务器都是主节点==</p>
+<h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>主从复制，是指将一台 Redis 服务器的数据，复制到其他的 Redis 服务器。前者称为主节点（master），后者称为从节点（slave）。<span style='color: red'>数据的复制是单向的，只能由主节点到从节点</span>。Master 以写为主，Slave 以读为主</p>
+<p><span style='color: red'>默认情况下，每台 Redis 服务器都是主节点</span></p>
 <p>一个主节点可以有多个从节点（或没有从节点），但一个从节点只能有一个主节点</p>
 <p><strong>主从复制的作用主要包括：</strong></p>
 <ul>
@@ -1014,7 +1014,7 @@
 <p>分别连接三个服务：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6379</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6379</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:b2f799e62d946ebb93873e5dae635337433fecd6</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6380</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6380</span></span><br><span class="line">127.0.0.1:6380&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:16ec0af43a4a5298c2fe49d925647fb1f86e670f</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6380&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6381</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6381</span></span><br><span class="line">127.0.0.1:6381&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:85dc09574791d7773085c83463bcb4338093252b</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6381&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="一主二从"><a href="#一主二从" class="headerlink" title="一主二从"></a>一主二从</h2><p>默认情况下。==每台 redis 服务器都是主节点==，所以只用配置从机就好了</p>
+<h2 id="一主二从"><a href="#一主二从" class="headerlink" title="一主二从"></a>一主二从</h2><p><span style='color: red'>默认情况下，每台 redis 服务器都是主节点</span>，所以只用配置从机就好了</p>
 <p>我们使用 6379 端口的作为主机，6380、6381 作为从机</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 6380 端口的客户端进行配置</span></span><br><span class="line">127.0.0.1:6380&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6380&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave				<span class="comment"># 当前角色为从机</span></span><br><span class="line">master_host:127.0.0.1	<span class="comment"># 主机的地址</span></span><br><span class="line">master_port:6379		<span class="comment"># 主机的端口</span></span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:5</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:14</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:14</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:14</span><br><span class="line">127.0.0.1:6380&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主机此时的状态</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:1		<span class="comment"># 已连接的从机数量：1</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=42,lag=1  <span class="comment"># 第1个从机的信息</span></span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:42</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:42</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 6381 端口的客户端进行配置</span></span><br><span class="line">127.0.0.1:6381&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6381&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave</span><br><span class="line">master_host:127.0.0.1</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:5</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:280</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:280</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:281</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6381&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主机此时的状态</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:2		<span class="comment"># 已连接的从机数量：2</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=364,lag=0		<span class="comment"># 第1个从机的信息</span></span><br><span class="line">slave1:ip=127.0.0.1,port=6381,state=online,offset=364,lag=1		<span class="comment"># 第2个从机的信息</span></span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:364</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:364</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1035,12 +1035,12 @@
 <p>复制原理</p>
 </blockquote>
 <p>Slave 启动成功连接到 Master 后会发送一个 sync 同步命令</p>
-<p>Master 接到命令，启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令，在后台进程执行完毕后，==Master 将传送整个数据文件到 Slave，并完成一次完全同步==</p>
+<p>Master 接到命令，启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令，在后台进程执行完毕后，<span style='color: red'>Master 将传送整个数据文件到 Slave，并完成一次完全同步</span></p>
 <ul>
 <li>全量复制：Slave 服务在接受到数据文件数据后， 将其存盘并加载到内存中</li>
 <li>增量复制：Master 继续将所有收集到的修改命令依次传给 Slave，完成同步</li>
 </ul>
-<p>==当 Slave 第一次连接或重新连接到 Master 时，一次完全同步（全量复制）将被自动执行==</p>
+<p><span style='color: red'>当 Slave 第一次连接或重新连接到 Master 时，一次完全同步（全量复制）将被自动执行</span></p>
 <blockquote>
 <p>层层链路</p>
 </blockquote>

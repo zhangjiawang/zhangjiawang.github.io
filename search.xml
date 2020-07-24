@@ -208,6 +208,44 @@
       </tags>
   </entry>
   <entry>
+    <title>Go语言入门笔记（四）</title>
+    <url>/2019/01/10/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="字符串常用函数"><a href="#字符串常用函数" class="headerlink" title="字符串常用函数"></a>字符串常用函数</h2><ol>
+<li><p>字符串查找 <code>strings.Contains()</code></p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.Contains(s, <span class="string">"hello"</span>), strings.Contains(s, <span class="string">"?"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true false</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+</li>
+<li><p>字符串下标 <code>strings.Index()</code></p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.Index(s, <span class="string">"o"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字符串分割 <code>strings.Split()</code></p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"string"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ss := <span class="string">"1#2#34#567"</span></span><br><span class="line">    fmt.Println(strings.Split(ss, <span class="string">"#"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [1 2 34 567]</span></span><br></pre></td></tr></table></figure></li>
+<li><p>字符串合并 <code>strings.join()</code></p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ss := <span class="string">"1#2#34#567"</span></span><br><span class="line"></span><br><span class="line">    splitStr := strings.Split(ss, <span class="string">"#"</span>)</span><br><span class="line"></span><br><span class="line">    fmt.Println(strings.Join(splitStr, <span class="string">"%"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1%2%34%567</span></span><br></pre></td></tr></table></figure></li>
+<li><p>判断前缀、后缀 <code>strings.HasPrefix()</code> <code>strings.HasSuffix()</code></p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.HasPrefix(s, <span class="string">"he"</span>))</span><br><span class="line">    fmt.Println(strings.HasSuffix(s, <span class="string">"ld"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true  true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串转换</p>
+<ol>
+<li>整型转字符串型 <code>strconv.Itoa()</code> <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := <span class="number">100</span></span><br><span class="line">    s := strconv.Itoa(i)</span><br><span class="line">    fmt.Println(s, reflect.TypeOf(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 100 string</span></span><br></pre></td></tr></table></figure></li>
+<li>字符串型转整型 <code>strconv.Atoi()</code> <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := <span class="string">"100"</span></span><br><span class="line">    s, err := strconv.Atoi(i)</span><br><span class="line">    fmt.Println(s, reflect.TypeOf(s), err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 100 int &lt;nil&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>字符串解析、格式化</p>
+ <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析</span></span><br><span class="line">    fmt.Println(strconv.ParseBool(<span class="string">"false"</span>))</span><br><span class="line">    fmt.Println(strconv.ParseFloat(<span class="string">"3.14"</span>, <span class="number">64</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式化</span></span><br><span class="line">    fmt.Println(strconv.FormatBool(<span class="literal">true</span>), reflect.TypeOf(strconv.FormatBool(<span class="literal">true</span>)))</span><br><span class="line">    fmt.Println(strconv.FormatInt(<span class="number">123</span>, <span class="number">2</span>), reflect.TypeOf(strconv.FormatInt(<span class="number">123</span>, <span class="number">2</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 以上输入：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">false &lt;nil&gt;</span><br><span class="line">3.14 &lt;nil&gt;</span><br><span class="line">true string</span><br><span class="line">1111011 string</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="结构体序列化和反序列化"><a href="#结构体序列化和反序列化" class="headerlink" title="结构体序列化和反序列化"></a>结构体序列化和反序列化</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">==<span class="string">"encoding/xml"</span></span><br><span class="line">==<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 结构体</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">==Name <span class="keyword">string</span> <span class="string">`xml:"name,attr"`</span></span><br><span class="line">==Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">==p := Person&#123;Name: <span class="string">"David"</span>, Age: <span class="number">18</span>&#125;</span><br><span class="line">==<span class="keyword">var</span> person []<span class="keyword">byte</span></span><br><span class="line">==<span class="keyword">var</span> err error</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 序列化</span></span><br><span class="line">==<span class="keyword">if</span> person, err = xml.MarshalIndent(p,<span class="string">""</span>, <span class="string">" "</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(<span class="keyword">string</span>(person))</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 反序列化</span></span><br><span class="line">==<span class="keyword">var</span> f = <span class="built_in">new</span>(Person)</span><br><span class="line">==<span class="keyword">if</span> err = xml.Unmarshal(person, f); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Person&gt;</span><br><span class="line"> &lt;name&gt;David&lt;&#x2F;name&gt;</span><br><span class="line"> &lt;Age&gt;18&lt;&#x2F;Age&gt;</span><br><span class="line">&lt;&#x2F;Person&gt;</span><br><span class="line">&amp;&#123;David 18&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go语言入门笔记（二）</title>
     <url>/2019/01/09/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ol>
@@ -301,42 +339,70 @@
       </tags>
   </entry>
   <entry>
-    <title>Go语言入门笔记（四）</title>
-    <url>/2019/01/10/Go%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="字符串常用函数"><a href="#字符串常用函数" class="headerlink" title="字符串常用函数"></a>字符串常用函数</h2><ol>
-<li><p>字符串查找 <code>strings.Contains()</code></p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.Contains(s, <span class="string">"hello"</span>), strings.Contains(s, <span class="string">"?"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true false</span></span><br></pre></td></tr></table></figure>
+    <title>setcookie刷新后才生效问题</title>
+    <url>/2019/01/18/setcookie%E5%88%B7%E6%96%B0%E5%90%8E%E6%89%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="最近遇到一个小问题，但挺有趣，记录一下"><a href="#最近遇到一个小问题，但挺有趣，记录一下" class="headerlink" title="最近遇到一个小问题，但挺有趣，记录一下"></a>最近遇到一个小问题，但挺有趣，记录一下</h3><ul>
+<li><p>首先，设置一个 cookie </p>
+  <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">        setcookie(<span class="string">'name'</span>, <span class="string">'jojo'</span>);</span><br><span class="line">        <span class="keyword">echo</span> $_COOKIE[<span class="string">'name'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  当<strong>首次访问</strong>此页面时，页面报错</p>
+<p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo88pw5orj30ee01w3yi.jpg" alt="3"></p>
+</li>
+</ul>
 <a id="more"></a>
-</li>
-<li><p>字符串下标 <code>strings.Index()</code></p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.Index(s, <span class="string">"o"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure></li>
-<li><p>字符串分割 <code>strings.Split()</code></p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"string"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ss := <span class="string">"1#2#34#567"</span></span><br><span class="line">    fmt.Println(strings.Split(ss, <span class="string">"#"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// [1 2 34 567]</span></span><br></pre></td></tr></table></figure></li>
-<li><p>字符串合并 <code>strings.join()</code></p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ss := <span class="string">"1#2#34#567"</span></span><br><span class="line"></span><br><span class="line">    splitStr := strings.Split(ss, <span class="string">"#"</span>)</span><br><span class="line"></span><br><span class="line">    fmt.Println(strings.Join(splitStr, <span class="string">"%"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1%2%34%567</span></span><br></pre></td></tr></table></figure></li>
-<li><p>判断前缀、后缀 <code>strings.HasPrefix()</code> <code>strings.HasSuffix()</code></p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(strings.HasPrefix(s, <span class="string">"he"</span>))</span><br><span class="line">    fmt.Println(strings.HasSuffix(s, <span class="string">"ld"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// true  true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>字符串转换</p>
-<ol>
-<li>整型转字符串型 <code>strconv.Itoa()</code> <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := <span class="number">100</span></span><br><span class="line">    s := strconv.Itoa(i)</span><br><span class="line">    fmt.Println(s, reflect.TypeOf(s))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 100 string</span></span><br></pre></td></tr></table></figure></li>
-<li>字符串型转整型 <code>strconv.Atoi()</code> <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := <span class="string">"100"</span></span><br><span class="line">    s, err := strconv.Atoi(i)</span><br><span class="line">    fmt.Println(s, reflect.TypeOf(s), err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 100 int &lt;nil&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>字符串解析、格式化</p>
- <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"strconv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析</span></span><br><span class="line">    fmt.Println(strconv.ParseBool(<span class="string">"false"</span>))</span><br><span class="line">    fmt.Println(strconv.ParseFloat(<span class="string">"3.14"</span>, <span class="number">64</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式化</span></span><br><span class="line">    fmt.Println(strconv.FormatBool(<span class="literal">true</span>), reflect.TypeOf(strconv.FormatBool(<span class="literal">true</span>)))</span><br><span class="line">    fmt.Println(strconv.FormatInt(<span class="number">123</span>, <span class="number">2</span>), reflect.TypeOf(strconv.FormatInt(<span class="number">123</span>, <span class="number">2</span>)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 以上输入：</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">false &lt;nil&gt;</span><br><span class="line">3.14 &lt;nil&gt;</span><br><span class="line">true string</span><br><span class="line">1111011 string</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>分析原因如下</p>
+<h4 id="第一次请求："><a href="#第一次请求：" class="headerlink" title="第一次请求："></a>第一次请求：</h4><p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo881wfeij30s30cpq4z.jpg" alt="2"></p>
+<h4 id="第二次请求："><a href="#第二次请求：" class="headerlink" title="第二次请求："></a>第二次请求：</h4><p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo87rgkjpj30rw0dgtau.jpg" alt="1"></p>
 </li>
-</ol>
-<h2 id="结构体序列化和反序列化"><a href="#结构体序列化和反序列化" class="headerlink" title="结构体序列化和反序列化"></a>结构体序列化和反序列化</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">==<span class="string">"encoding/xml"</span></span><br><span class="line">==<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person 结构体</span></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">==Name <span class="keyword">string</span> <span class="string">`xml:"name,attr"`</span></span><br><span class="line">==Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">==p := Person&#123;Name: <span class="string">"David"</span>, Age: <span class="number">18</span>&#125;</span><br><span class="line">==<span class="keyword">var</span> person []<span class="keyword">byte</span></span><br><span class="line">==<span class="keyword">var</span> err error</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 序列化</span></span><br><span class="line">==<span class="keyword">if</span> person, err = xml.MarshalIndent(p,<span class="string">""</span>, <span class="string">" "</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(<span class="keyword">string</span>(person))</span><br><span class="line"></span><br><span class="line">==<span class="comment">// 反序列化</span></span><br><span class="line">==<span class="keyword">var</span> f = <span class="built_in">new</span>(Person)</span><br><span class="line">==<span class="keyword">if</span> err = xml.Unmarshal(person, f); err != <span class="literal">nil</span> &#123;</span><br><span class="line">====fmt.Println(err)</span><br><span class="line">====<span class="keyword">return</span></span><br><span class="line">==&#125;</span><br><span class="line"></span><br><span class="line">==fmt.Println(f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上输出结果为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Person&gt;</span><br><span class="line"> &lt;name&gt;David&lt;&#x2F;name&gt;</span><br><span class="line"> &lt;Age&gt;18&lt;&#x2F;Age&gt;</span><br><span class="line">&lt;&#x2F;Person&gt;</span><br><span class="line">&amp;&#123;David 18&#125;</span><br></pre></td></tr></table></figure>
+<li><p>总结</p>
+<p>  当我们首次访问设置 cookie 的页面时，服务器会把设置的 cookie 值通过响应头发送过来，告诉浏览器将 cookie 存储的本地相应文件夹中（注意：第一次访问时本地还没有存储 cookie，所以此时获取不到值）当第二次访问（或在进行 cookie 设置后，过期前所有的访问）时，请求头信息你中都会把 cookie 值携带。</p>
+</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>Go</tag>
+        <tag>PHP</tag>
+        <tag>cookie</tag>
+        <tag>session</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>理解DevOps思想</title>
+    <url>/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</url>
+    <content><![CDATA[<h1 id="什么是-DevOps"><a href="#什么是-DevOps" class="headerlink" title="什么是 DevOps"></a>什么是 DevOps</h1><ol>
+<li><p>DevOps（Development Oprations）是一种思想或方法论，它涵盖开发、测试、运维的整个过程</p>
+</li>
+<li><p>DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更、软件继承</p>
+</li>
+<li><p>使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件</p>
+</li>
+</ol>
+<p><img src="https://i.loli.net/2020/07/13/qEfd6tp2jisCOJX.jpg" alt="timg (1)"></p>
+<a id="more"></a>
+
+<p>公司项目开发的大概流程，看看是如何一步一步操作的：</p>
+<p><img src="https://i.loli.net/2020/07/14/JpYiw7f3maIHcFB.png" alt="image-20200714183951928"></p>
+<p>Product Backlog 源自于 Scrum 方法，是指产品待办事项的集合，其事务有优先级判断，先处理优先级高的事项</p>
+<h1 id="DevOps-发展"><a href="#DevOps-发展" class="headerlink" title="DevOps 发展"></a>DevOps 发展</h1><p>DevOps 兴起于 2009 年，近年来由于云计算、互联网的发展，促进了 DevOps 的基础设施及工具链的发展，涌现了一大批优秀的工具，这些工具包括开发、测试、运维的各个领域，例如：GitHub、Git、Svn、Docker、Jenkins、HudSon、JMeter等</p>
+<p><img src="https://i.loli.net/2020/07/14/5dFoSijmNYEtcsl.jpg" alt="img"></p>
+<p><img src="https://i.loli.net/2020/07/14/eyToP91XVsvE4bw.jpg" alt="img"></p>
+<p><img src="https://i.loli.net/2020/07/14/mMZPu283vrgFVQl.png" alt="image-20200714222312445"></p>
+<p>传统上在软件开发的流程上，（无论是瀑布式开发还是敏捷式开发），都由“开发团队”来构建软件</p>
+<p>开发团队需要与运维团队进行大规模的“交接”，运维团队负责执行一系列“部署”活动，将软件代码迁移至生产环境，并负责维护后续系统的稳定运行。生产环境的基础设施与开发或测试不同，需要额外的检查和平衡，以确保它一切功能正常。</p>
+<p>DevOps 这种开发思想或模式，涉及到软件的整个生命周期，这些活动只能在 DevOps 中实现，而不是瀑布或敏捷。DevOps 是在较短的开发周期内开发高质量软件的首选方法，同时可以提高客户满意度。</p>
+<p>这就是为什么顶级互联网公司选择 DevOps 作为其业务目标发展方向的原因</p>
+<p><span style='color: red'>如果你是一名开发工程师：学习 DevOps 让你成为更加优秀的工程师</span></p>
+<p><span style='color: red'>如果你是一名运维工程师：学习 DevOps 必将简化你的工作流程，提高你的工作效率</span></p>
+<p><span style='color: red'>如果你是一名架构师：DevOps 是你工作实践中必须拥有的能力</span></p>
+<p><span style='color: red'>如果你是一名跳槽者：了解 DevOps 必将有助于找到更高薪的工作</span></p>
+<blockquote>
+<blockquote>
+<p>该笔记整理优化与 B 站 up 主：狂神说Java</p>
+<p>完整视频地址： <a href="https://www.bilibili.com/video/BV1zf4y127vu" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1zf4y127vu</a></p>
+<p>感谢狂神！</p>
+</blockquote>
+</blockquote>
+]]></content>
   </entry>
   <entry>
     <title>Swoole修炼之路</title>
@@ -388,176 +454,6 @@
 <li>注意服务器所使用的 IP 地址，如果是 <code>127.0.0.1</code> 回环地址，则客户端只能使用 <code>127.0.0.1</code> 才能连接上</li>
 <li>用的阿里云服务或者腾讯服务，需要在安全权限组进行设置开发的端口</li>
 </ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>mac vagrant nfs 挂载</title>
-    <url>/2019/09/19/mac-vagrant-nfs-%E6%8C%82%E8%BD%BD/</url>
-    <content><![CDATA[<h3 id="使用-vagrant-virtualbox-搭建的-php-开发环境，挂载共享目录的问题"><a href="#使用-vagrant-virtualbox-搭建的-php-开发环境，挂载共享目录的问题" class="headerlink" title="使用 vagrant + virtualbox 搭建的 php 开发环境，挂载共享目录的问题"></a>使用 vagrant + virtualbox 搭建的 php 开发环境，挂载共享目录的问题</h3><p>laravel 6.0 框架要求 php 版本大于 7.2 ，在成功升级 7.3 以后，框架终于搭建成功，但是发现一个裸框架首页加载居然需要 1s 多的时间，不科学，很不科学，太不科学了。所以开始动手……</p>
-<p><em>首先要把虚拟机的网络设置成 :private_network 模式</em></p>
-<a id="more"></a>
-
-<ul>
-<li><p>虚拟机安装 nfs 服务：<br>  centos 5：</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install nfs-utils portmap</span><br></pre></td></tr></table></figure>
-<p>  centos 6：</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install nfs-utils rpcbind</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于 MAC OS 系统集成了 nfs，只需要修改 <code>/etc/eprots</code> 文件，没有则新建：</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/exports <span class="comment"># 保持空文件即可</span></span><br></pre></td></tr></table></figure></li>
-<li><p><code>Vagrantfile</code> 文件修改：</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">config.vm.synced_folder <span class="string">"~/www"</span>, <span class="string">"/var/www"</span>, <span class="built_in">type</span>: “nfs<span class="string">", mount_options:['nolock,vers=3,udp']</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>保存后，使用命令 <code>vagrant reload</code> 重启虚拟机后才会生效，期间会修改 MAC OX 的 <code>/etc/exports</code> 文件。会提示输入 mac 账号的密码。输入即可！ </p>
-]]></content>
-      <tags>
-        <tag>Mac</tag>
-        <tag>Vagrant</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>setcookie刷新后才生效问题</title>
-    <url>/2019/01/18/setcookie%E5%88%B7%E6%96%B0%E5%90%8E%E6%89%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="最近遇到一个小问题，但挺有趣，记录一下"><a href="#最近遇到一个小问题，但挺有趣，记录一下" class="headerlink" title="最近遇到一个小问题，但挺有趣，记录一下"></a>最近遇到一个小问题，但挺有趣，记录一下</h3><ul>
-<li><p>首先，设置一个 cookie </p>
-  <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">        setcookie(<span class="string">'name'</span>, <span class="string">'jojo'</span>);</span><br><span class="line">        <span class="keyword">echo</span> $_COOKIE[<span class="string">'name'</span>];</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<p>  当<strong>首次访问</strong>此页面时，页面报错</p>
-<p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo88pw5orj30ee01w3yi.jpg" alt="3"></p>
-</li>
-</ul>
-<a id="more"></a>
-
-<ul>
-<li><p>分析原因如下</p>
-<h4 id="第一次请求："><a href="#第一次请求：" class="headerlink" title="第一次请求："></a>第一次请求：</h4><p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo881wfeij30s30cpq4z.jpg" alt="2"></p>
-<h4 id="第二次请求："><a href="#第二次请求：" class="headerlink" title="第二次请求："></a>第二次请求：</h4><p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo87rgkjpj30rw0dgtau.jpg" alt="1"></p>
-</li>
-<li><p>总结</p>
-<p>  当我们首次访问设置 cookie 的页面时，服务器会把设置的 cookie 值通过响应头发送过来，告诉浏览器将 cookie 存储的本地相应文件夹中（注意：第一次访问时本地还没有存储 cookie，所以此时获取不到值）当第二次访问（或在进行 cookie 设置后，过期前所有的访问）时，请求头信息你中都会把 cookie 值携带。</p>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>PHP</tag>
-        <tag>cookie</tag>
-        <tag>session</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据库分库分表思路</title>
-    <url>/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<h1 id="数据切分（Sharding）"><a href="#数据切分（Sharding）" class="headerlink" title="数据切分（Sharding）"></a>数据切分（Sharding）</h1><p>关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。</p>
-<p><strong>数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分</strong></p>
-<h3 id="一-垂直（纵向）切分"><a href="#一-垂直（纵向）切分" class="headerlink" title="一. 垂直（纵向）切分"></a>一. 垂直（纵向）切分</h3><a id="more"></a>
-<blockquote>
-<p>垂直切分常见有<strong>垂直分库</strong>和<strong>垂直分表</strong>两种。  </p>
-</blockquote>
-<p> 垂直分库：就是<strong>根据业务耦合性，将关联度低的不同表存储在不同的数据库。</strong> 做法与大系统拆分为多个小系统类似，按业务分类进行独立划分。与”微服务治理”的做法相似，每个微服务使用单独的一个数据库。如图：</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82d7mboj30pe0gcagp.jpg" alt=""></p>
-<p>垂直分表：基于<strong>数据库中的”列”进行</strong>，某个表字段较多，可以新建一张扩展表，<strong>将不经常用或字段长度较大的字段拆分出去到扩展表中。</strong> 在字段很多的情况下（例如一个大表有100多个字段），通过”大表拆小表”，更便于开发与维护，也能避免跨页问题，MySQL 底层是通过数据页存储的，一条记录占用空间过大会导致跨页，造成额外的性能开销。另外数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82gyyg6j30ns0bgmyh.jpg" alt=""></p>
-<p>优点：</p>
-<ul>
-<li>解决业务系统层面的耦合，业务清晰</li>
-<li>与微服务的治理类似，也能对不同业务的数据进行分级管理、维护、监控、扩展等</li>
-<li>高并发场景下，垂直切分一定程度的提升IO、数据库连接数、单机硬件资源的瓶颈</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>部分表无法join，只能通过接口聚合方式解决，提升了开发的复杂度</li>
-<li>分布式事务处理复杂</li>
-<li>依然存在单表数据量过大的问题（需要水平切分）</li>
-</ul>
-<h3 id="二-水平（横向）切分"><a href="#二-水平（横向）切分" class="headerlink" title="二. 水平（横向）切分"></a>二. 水平（横向）切分</h3><p>当一个应用难以再细粒度的垂直切分，或切分后数据量行数巨大，存在单库读写、存储性能瓶颈，这时候就需要进行水平切分了。</p>
-<p>水平切分分为<strong>库内分表</strong>和<strong>分库分表</strong>，是根据表内数据内在的逻辑关系，将同一个表按不同的条件分散到多个数据库或多个表中，每个表中只包含一部分数据，从而使得单个表的数据量变小，达到分布式的效果。如图所示：</p>
-<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82ofq5ij30kg0nedps.jpg" alt=""></p>
-<blockquote>
-<p>库内分表只解决了单一表数据量过大的问题，但没有将表分布到不同机器的库上，因此对于减轻 MySql 数据库压力来说，帮助不是很大，大家还是竞争同一物理机的 CPU、内存、网络 IO，最好通过分库分表来解决。</p>
-</blockquote>
-<p>水平切分的优点：</p>
-<ul>
-<li>不存在单表数据量大、高并发的性能瓶颈，提升系统稳定性和负载能力。</li>
-<li>应用端改动小，不需要拆分业务模块。</li>
-</ul>
-<p>水平切分的缺点：</p>
-<ul>
-<li>跨分片的事务一致性难以保证</li>
-<li>跨库的 join 关联查询性能差</li>
-<li>数据多次扩展和维护量极其大</li>
-</ul>
-<blockquote>
-<p>水平切分后同一张表会出现在多个数据库/表中，每个库/表的内容不同。几种典型的数据分片规则为：</p>
-</blockquote>
-<h4 id="1-根据数值范围："><a href="#1-根据数值范围：" class="headerlink" title="1. 根据数值范围："></a>1. 根据数值范围：</h4><p><strong>按照时间区间或 ID 区间来分</strong>，例如：按日期将不同月甚至不同日的数据分散到不同的库中；将 userId 为 1 ~ 9999 的记录分到第一个库，10000 ~ 20000 的记录分到第二个库，以此类推。某种意义上，某些系统使用的“冷热数据分离”，将一些使用较少（不活跃）的历史数据迁移到其他库，业务上只提供热点数据的查询，也是类似的实践。</p>
-<p>优点：</p>
-<ul>
-<li>单表大小可控</li>
-<li>天然便于水平扩展，后期如果想对整个分片集群扩容时，只需要添加节点即可，无需对其他分片的数据进行迁移</li>
-<li>使用分片字段进行范围查询时，连续分片可快速定位分片进行快速查询，有效避免分片查询问题。</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li>热点数据成为性能瓶颈。连续分片可能存在数据热点，例如按时间字段分片，有些分片存储最近时间段内的数据，可能会被频繁的读写，而有些分片存储的历史数据，则很少被查询。</li>
-</ul>
-<h4 id="2-根据数值取模："><a href="#2-根据数值取模：" class="headerlink" title="2. 根据数值取模："></a>2. 根据数值取模：</h4><p><strong>一般采用 hash 取模 mod 的切分方式</strong>，例如：将 Customer 表根据 cusno 字段切分到 4 个库中，余数为 0 的放在第一个库，余数为 1 的放在第二个库，一次类推。这样同一个用户的数据会分散到同一个库中，如果查询条件带有 cuson 字段，则可明确定位到相应库去查询</p>
-<p>优点：</p>
-<ul>
-<li>数据分片相对比较均匀，不容易出现热点和并发访问的瓶颈</li>
-</ul>
-<p>缺点：</p>
-<ul>
-<li><p>后期分片集群扩容时，需要迁移旧的数据，（使用一致性 hash 算法能较好的避免这个问题）</p>
-</li>
-<li><p>容易面临跨分片查询的复杂问题。比如上例中，如果频繁用到的查询条件中的不带 cuson 时，将会导致无法定位数据库，从而需要同时项 4 个库发起查询，再在内存中合并数据，取最小集返回给应用，分库反而成为拖累。</p>
-<p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82r9940j30ri0nodri.jpg" alt=""></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>理解DevOps思想</title>
-    <url>/2020/07/13/%E7%90%86%E8%A7%A3DevOps%E6%80%9D%E6%83%B3/</url>
-    <content><![CDATA[<h1 id="什么是-DevOps"><a href="#什么是-DevOps" class="headerlink" title="什么是 DevOps"></a>什么是 DevOps</h1><ol>
-<li><p>DevOps（Development Oprations）是一种思想或方法论，它涵盖开发、测试、运维的整个过程</p>
-</li>
-<li><p>DevOps 强调软件开发人员与软件测试、软件运维、质量保障（QA）部门之间有效的沟通与协作。强调通过自动化的方法管理软件变更、软件继承</p>
-</li>
-<li><p>使软件从构建到测试、发布更加快捷、可靠，最终按时交付软件</p>
-</li>
-</ol>
-<p><img src="https://i.loli.net/2020/07/13/qEfd6tp2jisCOJX.jpg" alt="timg (1)"></p>
-<a id="more"></a>
-
-<p>公司项目开发的大概流程，看看是如何一步一步操作的：</p>
-<p><img src="https://i.loli.net/2020/07/14/JpYiw7f3maIHcFB.png" alt="image-20200714183951928"></p>
-<p>Product Backlog 源自于 Scrum 方法，是指产品待办事项的集合，其事务有优先级判断，先处理优先级高的事项</p>
-<h1 id="DevOps-发展"><a href="#DevOps-发展" class="headerlink" title="DevOps 发展"></a>DevOps 发展</h1><p>DevOps 兴起于 2009 年，近年来由于云计算、互联网的发展，促进了 DevOps 的基础设施及工具链的发展，涌现了一大批优秀的工具，这些工具包括开发、测试、运维的各个领域，例如：GitHub、Git、Svn、Docker、Jenkins、HudSon、JMeter等</p>
-<p><img src="https://i.loli.net/2020/07/14/5dFoSijmNYEtcsl.jpg" alt="img"></p>
-<p><img src="https://i.loli.net/2020/07/14/eyToP91XVsvE4bw.jpg" alt="img"></p>
-<p><img src="https://i.loli.net/2020/07/14/mMZPu283vrgFVQl.png" alt="image-20200714222312445"></p>
-<p>传统上在软件开发的流程上，（无论是瀑布式开发还是敏捷式开发），都由“开发团队”来构建软件</p>
-<p>开发团队需要与运维团队进行大规模的“交接”，运维团队负责执行一系列“部署”活动，将软件代码迁移至生产环境，并负责维护后续系统的稳定运行。生产环境的基础设施与开发或测试不同，需要额外的检查和平衡，以确保它一切功能正常。</p>
-<p>DevOps 这种开发思想或模式，涉及到软件的整个生命周期，这些活动只能在 DevOps 中实现，而不是瀑布或敏捷。DevOps 是在较短的开发周期内开发高质量软件的首选方法，同时可以提高客户满意度。</p>
-<p>这就是为什么顶级互联网公司选择 DevOps 作为其业务目标发展方向的原因</p>
-<p>==如果你是一名开发工程师：学习 DevOps 让你成为更加优秀的工程师==</p>
-<p>==如果你是一名运维工程师：学习 DevOps 必将简化你的工作流程，提高你的工作效率==</p>
-<p>==如果你是一名架构师：DevOps 是你工作实践中必须拥有的能力==</p>
-<p>==如果你是一名跳槽者：了解 DevOps 必将有助于找到更高薪的工作==</p>
-<blockquote>
-<blockquote>
-<p>该笔记整理优化与 B 站 up 主：狂神说Java</p>
-<p>完整视频地址： <a href="https://www.bilibili.com/video/BV1zf4y127vu" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1zf4y127vu</a></p>
-<p>感谢狂神！</p>
-</blockquote>
-</blockquote>
 ]]></content>
   </entry>
   <entry>
@@ -647,7 +543,7 @@
 <blockquote>
 <p>容器化技术</p>
 </blockquote>
-<p>==容器化技术不是模拟的一个完整的操作系统==</p>
+<p><span style='color: red'>容器化技术不是模拟的一个完整的操作系统</span></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfwi5k0e2qj30yk0u0t9w.jpg" alt="image-20200611161800008"></p>
 <p>比较 Docker 和 虚拟机技术的不同：</p>
 <ul>
@@ -833,8 +729,8 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 1. 启动一个默认 tomcat</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 2. 发现默认的 tomcat 镜像 webapps 目录下没有文件</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 3. 自己拷贝基本的文件进去</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 4. 将自己操作过的容器通过 commit 提交为一个新的镜像</span></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfwiajscz2j30s50ahq5q.jpg" alt="image-20200616141100722"></p>
-<p>==如果想保存当前容器的状态，就可以通过 commit 来提交，保存成为一个镜像。类似于虚拟机的快照，可以通过镜像的 tag 来标注信息==</p>
-<h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p>数据保存再容器中，如果容器删除，数据就会丢失，==需求：数据可以持久化==</p>
+<p><span style='color: red'>如果想保存当前容器的状态，就可以通过 commit 来提交，保存成为一个镜像。类似于虚拟机的快照，可以通过镜像的 tag 来标注信息</span></p>
+<h1 id="容器数据卷"><a href="#容器数据卷" class="headerlink" title="容器数据卷"></a>容器数据卷</h1><h2 id="什么是容器数据卷"><a href="#什么是容器数据卷" class="headerlink" title="什么是容器数据卷"></a>什么是容器数据卷</h2><p>数据保存再容器中，如果容器删除，数据就会丢失，<span style='color: red'>需求：数据可以持久化</span></p>
 <p>容器之间可以有一个数据共享的技术，Docker 容器中产生的数据，同步到本地（目录的挂载，将容器的目录，挂载到 Linux 上）</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gfwiamzr9rj30vi0gu75h.jpg" alt="image-20200616142447190"></p>
 <h2 id="使用数据卷"><a href="#使用数据卷" class="headerlink" title="使用数据卷"></a>使用数据卷</h2><blockquote>
@@ -849,8 +745,8 @@
 
 <h2 id="具名和匿名挂载"><a href="#具名和匿名挂载" class="headerlink" title="具名和匿名挂载"></a>具名和匿名挂载</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匿名挂载</span></span><br><span class="line">[root@localhost ~]# docker run -d -P -v /etc/nginx --name nginx02  nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有卷的情况 </span></span><br><span class="line">[root@localhost ~]# docker volume ls</span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               325659ae6a85f8c019bf06e32fed1495a94ae25f221a15b119a5581fc4daff7d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这样的就是匿名挂载，我们在 -v 只写了容器内的路径，没有写容器外的路径</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 具名挂载</span></span><br><span class="line">[root@localhost ~]# docker run -d -P -v juming-nginx:/etc/nginx --name nginx03  nginx</span><br><span class="line">e05bdf32964dc47cd1b53a8b9529ce54cece56765abf01f5037109354bbd60ae</span><br><span class="line">[root@localhost ~]# docker volume ls</span><br><span class="line">DRIVER              VOLUME NAME</span><br><span class="line">local               325659ae6a85f8c019bf06e32fed1495a94ae25f221a15b119a5581fc4daff7d</span><br><span class="line">local               juming-nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看具名挂载的卷</span></span><br><span class="line">[root@localhost ~]# docker volume inspect juming-nginx</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "CreatedAt": "2020-06-16T18:25:37Z",</span><br><span class="line">        "Driver": "local",</span><br><span class="line">        "Labels": null,</span><br><span class="line">        "Mountpoint": "/var/lib/docker/volumes/juming-nginx/_data",</span><br><span class="line">        "Name": "juming-nginx",</span><br><span class="line">        "Options": null,</span><br><span class="line">        "Scope": "local"</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
-<p>所有的 docker 容器内的卷，没有指定目录的情况下都在 ==/var/lib/docker/volumes/xxx/_data==</p>
-<p>使用具名挂载可以方便的找到卷，大多数情况下都是使用 ==具名挂载==</p>
+<p>所有的 docker 容器内的卷，没有指定目录的情况下都在 <span style='color: red'>/var/lib/docker/volumes/xxx/_data</span></p>
+<p>使用具名挂载可以方便的找到卷，大多数情况下都是使用 <span style='color: red'>具名挂载</span></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 总结</span></span><br><span class="line">-v 容器内路径		       # 匿名挂载</span><br><span class="line">-v 卷名:容器内路径			  # 具名挂载</span><br><span class="line">-v /宿主机路径:容器内路径		# 指定路径挂载</span><br></pre></td></tr></table></figure>
 
 <p>拓展：</p>
@@ -934,7 +830,7 @@
 <p>测试 ENTRYPOINT</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编写 dockerfile</span></span><br><span class="line">[root@localhost dockerfile]# vi dockerfile-entryporint</span><br><span class="line">[root@localhost dockerfile]# cat dockerfile-entryporint</span><br><span class="line">FROM centos</span><br><span class="line">ENTRYPOINT ["ls", "-a"]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建镜像</span></span><br><span class="line">[root@localhost dockerfile]# docker build -f dockerfile-entryporint -t entrypoint-test .</span><br><span class="line">Sending build context to Docker daemon  4.096kB</span><br><span class="line">Step 1/2 : FROM centos</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> 470671670cac</span></span><br><span class="line">Step 2/2 : ENTRYPOINT ["ls", "-a"]</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> d53dc3860faf</span></span><br><span class="line">Removing intermediate container d53dc3860faf</span><br><span class="line"><span class="meta"> ---&gt;</span><span class="bash"> 40d90fb68bc1</span></span><br><span class="line">Successfully built 40d90fb68bc1</span><br><span class="line">Successfully tagged entrypoint-test:latest</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 运行镜像</span></span><br><span class="line">[root@localhost dockerfile]# docker run 40d90fb68bc1</span><br><span class="line">.</span><br><span class="line">..</span><br><span class="line">.dockerenv</span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">etc</span><br><span class="line">home</span><br><span class="line">lib</span><br><span class="line">lib64</span><br><span class="line">lost+found</span><br><span class="line">media</span><br><span class="line">mnt</span><br><span class="line">opt</span><br><span class="line">proc</span><br><span class="line">root</span><br><span class="line">run</span><br><span class="line">sbin</span><br><span class="line">srv</span><br><span class="line">sys</span><br><span class="line">tmp</span><br><span class="line">usr</span><br><span class="line">var</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="comment"># 追加一个命令 -l	这里是直接追加在</span></span></span><br><span class="line">[root@localhost dockerfile]# docker run 40d90fb68bc1 -l</span><br><span class="line">total 0</span><br><span class="line">drwxr-xr-x.   1 root root   6 Jun 17 01:10 .</span><br><span class="line">drwxr-xr-x.   1 root root   6 Jun 17 01:10 ..</span><br><span class="line">-rwxr-xr-x.   1 root root   0 Jun 17 01:10 .dockerenv</span><br><span class="line">lrwxrwxrwx.   1 root root   7 May 11  2019 bin -&gt; usr/bin</span><br><span class="line">drwxr-xr-x.   5 root root 340 Jun 17 01:10 dev</span><br><span class="line">drwxr-xr-x.   1 root root  66 Jun 17 01:10 etc</span><br><span class="line">drwxr-xr-x.   2 root root   6 May 11  2019 home</span><br><span class="line">lrwxrwxrwx.   1 root root   7 May 11  2019 lib -&gt; usr/lib</span><br><span class="line">lrwxrwxrwx.   1 root root   9 May 11  2019 lib64 -&gt; usr/lib64</span><br><span class="line">drwx------.   2 root root   6 Jan 13 21:48 lost+found</span><br><span class="line">drwxr-xr-x.   2 root root   6 May 11  2019 media</span><br><span class="line">drwxr-xr-x.   2 root root   6 May 11  2019 mnt</span><br><span class="line">drwxr-xr-x.   2 root root   6 May 11  2019 opt</span><br><span class="line">dr-xr-xr-x. 109 root root   0 Jun 17 01:10 proc</span><br><span class="line">dr-xr-x---.   2 root root 162 Jan 13 21:49 root</span><br><span class="line">drwxr-xr-x.  11 root root 163 Jan 13 21:49 run</span><br><span class="line">lrwxrwxrwx.   1 root root   8 May 11  2019 sbin -&gt; usr/sbin</span><br><span class="line">drwxr-xr-x.   2 root root   6 May 11  2019 srv</span><br><span class="line">dr-xr-xr-x.  13 root root   0 Jun 16 02:47 sys</span><br><span class="line">drwxrwxrwt.   7 root root 145 Jan 13 21:49 tmp</span><br><span class="line">drwxr-xr-x.  12 root root 144 Jan 13 21:49 usr</span><br><span class="line">drwxr-xr-x.  20 root root 262 Jan 13 21:49 var</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里是直接追加在 ENTRYPOINT [<span class="string">"ls"</span>, <span class="string">"-a"</span>] 命令后，ls -a -l 执行成功</span></span><br></pre></td></tr></table></figure>
 
-<p><strong>==dockerfile 文件建议使用官方命名：Dockerfile，这样在 build 的时候就不用 -f 参数了==</strong> </p>
+<p><strong><span style='color: red'>dockerfile 文件建议使用官方命名：Dockerfile，这样在 build 的时候就不用 -f 参数了</span></strong> </p>
 <h2 id="发布自己的镜像"><a href="#发布自己的镜像" class="headerlink" title="发布自己的镜像"></a>发布自己的镜像</h2><blockquote>
 <p>DockerHub</p>
 </blockquote>
@@ -1164,7 +1060,7 @@
 <h1 id="Redis-入门"><a href="#Redis-入门" class="headerlink" title="Redis 入门"></a>Redis 入门</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
 <p>Redis 是什么？</p>
 </blockquote>
-<p>Redis（==Re==mote ==Di==ctionary ==S==erver )，即远程字典服务。是一个开源的使用ANSI <a href="https://baike.baidu.com/item/C语言" target="_blank" rel="noopener">C语言</a>编写、支持网络、可基于内存亦可持久化的日志型、Key-Value<a href="https://baike.baidu.com/item/数据库/103728" target="_blank" rel="noopener">数据库</a>，并提供多种语言的API</p>
+<p>Redis（<span style='color: red'>Re</span>mote <span style='color: red'>Di</span>ctionary <span style='color: red'>S</span>erver )，即远程字典服务。是一个开源的使用ANSI <a href="https://baike.baidu.com/item/C语言" target="_blank" rel="noopener">C语言</a>编写、支持网络、可基于内存亦可持久化的日志型、Key-Value<a href="https://baike.baidu.com/item/数据库/103728" target="_blank" rel="noopener">数据库</a>，并提供多种语言的API</p>
 <p>与 memcached 一样，为了保证效率，数据都是缓存在内存中。区别的是 redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave (主从)同步。</p>
 <p>免费和开源！当下最热门的 NoSQL 技术之一，也被人们成为结构化数据库</p>
 <blockquote>
@@ -1184,7 +1080,7 @@
 <p>3、集群、事务</p>
 <p>4、…………</p>
 <blockquote>
-<p>==Redis 推荐在 Linux 服务器上搭建==</p>
+<p><span style='color: red'>Redis 推荐在 Linux 服务器上搭建</span></p>
 </blockquote>
 <p>官网：<a href="https://redis.io/" target="_blank" rel="noopener">https://redis.io/</a></p>
 <p>中文网：<a href="http://redis.cn/" target="_blank" rel="noopener">http://redis.cn/</a></p>
@@ -1234,7 +1130,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379[3]&gt; select 0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) <span class="string">"mylist:&#123;tag&#125;"</span></span><br><span class="line">2) <span class="string">"counter:&#123;tag&#125;:__rand_int__"</span></span><br><span class="line">3) <span class="string">"key:&#123;tag&#125;:__rand_int__"</span></span><br><span class="line">127.0.0.1:6379&gt; select 3</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[3]&gt; flushall</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379[3]&gt; select 0</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">(empty array)</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>==Redis 是单线程的！==</p>
+<p><span style='color: red'>Redis 是单线程的！</span></p>
 </blockquote>
 <p>Redis 是基于内存操作的，CPU 不是 Redis 的性能瓶颈，Redis 的瓶颈是在于机器的内存和网络的带宽。所以就使用了单线程</p>
 <p><strong>Redis 单线程为什么这么快？</strong></p>
@@ -1380,7 +1276,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将二维的经纬度，转换为一维的字符串，如果连个字符串越接近，那么距离越近</span></span><br><span class="line">127.0.0.1:6379&gt; GEOHASH china:city beijing shanghai</span><br><span class="line">1) <span class="string">"wx4fbxxfke0"</span></span><br><span class="line">2) <span class="string">"wtw3sj5zbj0"</span></span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>==geo 底层就是基于 zset，可以通过 zset 命令操作 geo==</strong></p>
+<p><strong><span style='color: red'>geo 底层就是基于 zset，可以通过 zset 命令操作 geo</span></strong></p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1:6379&gt; zrange china:city 0 -1</span><br><span class="line">1) <span class="string">"chongqing"</span></span><br><span class="line">2) <span class="string">"xian"</span></span><br><span class="line">3) <span class="string">"shenzhen"</span></span><br><span class="line">4) <span class="string">"hangzhou"</span></span><br><span class="line">5) <span class="string">"shanghai"</span></span><br><span class="line">6) <span class="string">"beijing"</span></span><br><span class="line">127.0.0.1:6379&gt; zrem china:city beijing</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1423,7 +1319,7 @@
 <p><strong>持久性（Durability）</strong></p>
 <p>持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响</p>
 <blockquote>
-<p>==redis 的事务没有隔离性的概念==</p>
+<p><span style='color: red'>redis 的事务没有隔离性的概念</span></p>
 </blockquote>
 <p>redis 事务的特性：</p>
 <p>一次性、顺序性、排他性</p>
@@ -1507,7 +1403,7 @@
 <p>在指定的时间间隔内将内存中的数据集快照写入磁盘，也就是行话讲的 Snapshot 快照，它恢复时是将快照中的文件直接读到内存中。</p>
 <p>redis 会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。整个过程中，主进程不进行任何 IO 操作，这就确保了极高的性能。如果需要大规模数据的恢复，且对于数据恢复的完整性不是很敏感，那么 RDB 方式要比 ROF 方式更高效，RBD 的缺点就是最后一次持久化后的数据可能丢失，默认的就是 RDB，一般情况下不需要修改这个配置</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmyuu3rlsj31j20tcjvj.jpg" alt="image-20200711132619528"></p>
-<p>==rdb 保存的文件：dump.rdb==</p>
+<p><span style='color: red'>rdb 保存的文件：dump.rdb</span></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ggmy03hvf6j30ho03874h.jpg" alt="image-20200711125649417"></p>
 <blockquote>
 <p>触发机制</p>
@@ -1551,7 +1447,7 @@
 <p>AOF 是什么</p>
 </blockquote>
 <p> 以日志的形式记录每个写操作，将 redis 执行过的所有执行记录下来（读操作不记录），只许追加文件但不可以改写文件，redis 启动时会读取该文件重新构建数据。换言之，redis 重启就是根据日志文件的内容将指令从前往后执行一次，完成数据的恢复工作</p>
-<p>==AOF 保存的文件：appendonly.aof==</p>
+<p><span style='color: red'>AOF 保存的文件：appendonly.aof</span></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmz0nh874j313l0u0wm0.jpg" alt="image-20200711133157744"></p>
 <p>默认是不开启的，需要手动开启 <code>appendonly yes</code></p>
 <p>重启 redis 即可生效</p>
@@ -1596,13 +1492,13 @@
 <p>Aof 的规则就是无限追加，文件就会越来越大</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmzn0rujmj31120qidlz.jpg" alt="image-20200711135327328"></p>
 <p>文件大于 64 M，就会 fork 一个新的进程重写文件</p>
-<p>==<strong>RBD 和 ROF 的对比</strong>==</p>
+<p><strong><span style='color: red'>RBD 和 ROF 的对比</span></strong></p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggmzjkm4e5j30h708cdg1.jpg" alt="b5718f91883d9f0e90144e681d1c2ea7"></p>
 <p><strong>扩展：</strong></p>
 <ol>
 <li>RDB 持久化方式能够在指定的时间间隔内对你的数据进行快照存储</li>
 <li>AOF 持久化方式记录每次对服务器写的操作，当服务器重启时会重新执行这些命令来回复数据，AOF 命令以 Reids 协议追加保存每次写的操作到文件末尾（redis 还能对 aof 文件进行后台重写，使得 aof 文件的体积不至于过大）</li>
-<li>==如果只做缓存，只希望数据在服务器运行的时候存在，就不使用任何持久化==</li>
+<li><span style='color: red'>如果只做缓存，只希望数据在服务器运行的时候存在，就不使用任何持久化</span></li>
 <li>同时开启两种持久化方式<ol>
 <li>这种情况下，当 redis 重启的时候会优先载入 aof 文件来恢复原始的数据，因为在通常的情况下 aof 文件保存的数据集要比 rdb 文件保存的数据集更加完整</li>
 <li>rdb 的数据不实时，同时使用两者时服务器重启也会只找 aof 文件。那是不是只使用 aof 呢？建议不要，因为 rdb 更适合用于备份数据库（aof 在不断变化不好备份），快速重启，而且不会有 aof 可能潜在的bug，留着作为一个万一的手段</li>
@@ -1675,8 +1571,8 @@
 <p>通过 PUBLISH 命令向订阅者发送消息，redis-server 会使用给定的 channel 作为键，在它维护的字典中查找记录了订阅这个 channel 的所有客户端的链表，遍历这个链表，将消息发布给所有订阅者</p>
 <p>Pub/Sub 从字面上理解就是发布（Publish）和订阅（Subscribe），在 Redis 中，你可以设定对某一个 key 值进行消息发布及消息订阅，当一个 key 值进行消息发布后，所有订阅它的客户端都会收到对应的消息。这一功能最明显的用法就是用作实时消息系统，比如普通的即时聊天、群聊等</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggn1ltbucpj314g0qmn1l.jpg" alt="image-20200711150129632"></p>
-<h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>主从复制，是指将一台 Redis 服务器的数据，复制到其他的 Redis 服务器。前者称为主节点（master），后者称为从节点（slave）。==数据的复制是单向的，只能由主节点到从节点==。Master 以写为主，Slave 以读为主</p>
-<p>==默认情况下，每台 Redis 服务器都是主节点==</p>
+<h1 id="Redis-主从复制"><a href="#Redis-主从复制" class="headerlink" title="Redis 主从复制"></a>Redis 主从复制</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>主从复制，是指将一台 Redis 服务器的数据，复制到其他的 Redis 服务器。前者称为主节点（master），后者称为从节点（slave）。<span style='color: red'>数据的复制是单向的，只能由主节点到从节点</span>。Master 以写为主，Slave 以读为主</p>
+<p><span style='color: red'>默认情况下，每台 Redis 服务器都是主节点</span></p>
 <p>一个主节点可以有多个从节点（或没有从节点），但一个从节点只能有一个主节点</p>
 <p><strong>主从复制的作用主要包括：</strong></p>
 <ul>
@@ -1715,7 +1611,7 @@
 <p>分别连接三个服务：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 6379</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6379</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:b2f799e62d946ebb93873e5dae635337433fecd6</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6380</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6380</span></span><br><span class="line">127.0.0.1:6380&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:16ec0af43a4a5298c2fe49d925647fb1f86e670f</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6380&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6381</span></span><br><span class="line">[root@localhost bin]<span class="comment"># ./redis-cli -p 6381</span></span><br><span class="line">127.0.0.1:6381&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:85dc09574791d7773085c83463bcb4338093252b</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:0</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:0</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:0</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6381&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="一主二从"><a href="#一主二从" class="headerlink" title="一主二从"></a>一主二从</h2><p>默认情况下。==每台 redis 服务器都是主节点==，所以只用配置从机就好了</p>
+<h2 id="一主二从"><a href="#一主二从" class="headerlink" title="一主二从"></a>一主二从</h2><p><span style='color: red'>默认情况下，每台 redis 服务器都是主节点</span>，所以只用配置从机就好了</p>
 <p>我们使用 6379 端口的作为主机，6380、6381 作为从机</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在 6380 端口的客户端进行配置</span></span><br><span class="line">127.0.0.1:6380&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6380&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave				<span class="comment"># 当前角色为从机</span></span><br><span class="line">master_host:127.0.0.1	<span class="comment"># 主机的地址</span></span><br><span class="line">master_port:6379		<span class="comment"># 主机的端口</span></span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:5</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:14</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:14</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:14</span><br><span class="line">127.0.0.1:6380&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主机此时的状态</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:1		<span class="comment"># 已连接的从机数量：1</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=42,lag=1  <span class="comment"># 第1个从机的信息</span></span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:42</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:42</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 6381 端口的客户端进行配置</span></span><br><span class="line">127.0.0.1:6381&gt; SLAVEOF 127.0.0.1 6379</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6381&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:slave</span><br><span class="line">master_host:127.0.0.1</span><br><span class="line">master_port:6379</span><br><span class="line">master_link_status:up</span><br><span class="line">master_last_io_seconds_ago:5</span><br><span class="line">master_sync_in_progress:0</span><br><span class="line">slave_repl_offset:280</span><br><span class="line">slave_priority:100</span><br><span class="line">slave_read_only:1</span><br><span class="line">connected_slaves:0</span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:280</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:281</span><br><span class="line">repl_backlog_histlen:0</span><br><span class="line">127.0.0.1:6381&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">########################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主机此时的状态</span></span><br><span class="line">127.0.0.1:6379&gt; info replication</span><br><span class="line"><span class="comment"># Replication</span></span><br><span class="line">role:master</span><br><span class="line">connected_slaves:2		<span class="comment"># 已连接的从机数量：2</span></span><br><span class="line">slave0:ip=127.0.0.1,port=6380,state=online,offset=364,lag=0		<span class="comment"># 第1个从机的信息</span></span><br><span class="line">slave1:ip=127.0.0.1,port=6381,state=online,offset=364,lag=1		<span class="comment"># 第2个从机的信息</span></span><br><span class="line">master_replid:f9577f9528ab15f137d134365fb44acf24336789</span><br><span class="line">master_replid2:0000000000000000000000000000000000000000</span><br><span class="line">master_repl_offset:364</span><br><span class="line">second_repl_offset:-1</span><br><span class="line">repl_backlog_active:1</span><br><span class="line">repl_backlog_size:1048576</span><br><span class="line">repl_backlog_first_byte_offset:1</span><br><span class="line">repl_backlog_histlen:364</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
 
@@ -1736,12 +1632,12 @@
 <p>复制原理</p>
 </blockquote>
 <p>Slave 启动成功连接到 Master 后会发送一个 sync 同步命令</p>
-<p>Master 接到命令，启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令，在后台进程执行完毕后，==Master 将传送整个数据文件到 Slave，并完成一次完全同步==</p>
+<p>Master 接到命令，启动后台的存盘进程，同时收集所有接收到的用于修改数据集命令，在后台进程执行完毕后，<span style='color: red'>Master 将传送整个数据文件到 Slave，并完成一次完全同步</span></p>
 <ul>
 <li>全量复制：Slave 服务在接受到数据文件数据后， 将其存盘并加载到内存中</li>
 <li>增量复制：Master 继续将所有收集到的修改命令依次传给 Slave，完成同步</li>
 </ul>
-<p>==当 Slave 第一次连接或重新连接到 Master 时，一次完全同步（全量复制）将被自动执行==</p>
+<p><span style='color: red'>当 Slave 第一次连接或重新连接到 Master 时，一次完全同步（全量复制）将被自动执行</span></p>
 <blockquote>
 <p>层层链路</p>
 </blockquote>
@@ -1890,6 +1786,110 @@
       <tags>
         <tag>redis</tag>
         <tag>缓存</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据库分库分表思路</title>
+    <url>/2020/05/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<h1 id="数据切分（Sharding）"><a href="#数据切分（Sharding）" class="headerlink" title="数据切分（Sharding）"></a>数据切分（Sharding）</h1><p>关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到 1000W 或 100G 以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。</p>
+<p><strong>数据切分根据其切分类型，可以分为两种方式：垂直（纵向）切分和水平（横向）切分</strong></p>
+<h3 id="一-垂直（纵向）切分"><a href="#一-垂直（纵向）切分" class="headerlink" title="一. 垂直（纵向）切分"></a>一. 垂直（纵向）切分</h3><a id="more"></a>
+<blockquote>
+<p>垂直切分常见有<strong>垂直分库</strong>和<strong>垂直分表</strong>两种。  </p>
+</blockquote>
+<p> 垂直分库：就是<strong>根据业务耦合性，将关联度低的不同表存储在不同的数据库。</strong> 做法与大系统拆分为多个小系统类似，按业务分类进行独立划分。与”微服务治理”的做法相似，每个微服务使用单独的一个数据库。如图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82d7mboj30pe0gcagp.jpg" alt=""></p>
+<p>垂直分表：基于<strong>数据库中的”列”进行</strong>，某个表字段较多，可以新建一张扩展表，<strong>将不经常用或字段长度较大的字段拆分出去到扩展表中。</strong> 在字段很多的情况下（例如一个大表有100多个字段），通过”大表拆小表”，更便于开发与维护，也能避免跨页问题，MySQL 底层是通过数据页存储的，一条记录占用空间过大会导致跨页，造成额外的性能开销。另外数据库以行为单位将数据加载到内存中，这样表中字段长度较短且访问频率较高，内存能加载更多的数据，命中率更高，减少了磁盘 IO，从而提升了数据库性能。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82gyyg6j30ns0bgmyh.jpg" alt=""></p>
+<p>优点：</p>
+<ul>
+<li>解决业务系统层面的耦合，业务清晰</li>
+<li>与微服务的治理类似，也能对不同业务的数据进行分级管理、维护、监控、扩展等</li>
+<li>高并发场景下，垂直切分一定程度的提升IO、数据库连接数、单机硬件资源的瓶颈</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>部分表无法join，只能通过接口聚合方式解决，提升了开发的复杂度</li>
+<li>分布式事务处理复杂</li>
+<li>依然存在单表数据量过大的问题（需要水平切分）</li>
+</ul>
+<h3 id="二-水平（横向）切分"><a href="#二-水平（横向）切分" class="headerlink" title="二. 水平（横向）切分"></a>二. 水平（横向）切分</h3><p>当一个应用难以再细粒度的垂直切分，或切分后数据量行数巨大，存在单库读写、存储性能瓶颈，这时候就需要进行水平切分了。</p>
+<p>水平切分分为<strong>库内分表</strong>和<strong>分库分表</strong>，是根据表内数据内在的逻辑关系，将同一个表按不同的条件分散到多个数据库或多个表中，每个表中只包含一部分数据，从而使得单个表的数据量变小，达到分布式的效果。如图所示：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82ofq5ij30kg0nedps.jpg" alt=""></p>
+<blockquote>
+<p>库内分表只解决了单一表数据量过大的问题，但没有将表分布到不同机器的库上，因此对于减轻 MySql 数据库压力来说，帮助不是很大，大家还是竞争同一物理机的 CPU、内存、网络 IO，最好通过分库分表来解决。</p>
+</blockquote>
+<p>水平切分的优点：</p>
+<ul>
+<li>不存在单表数据量大、高并发的性能瓶颈，提升系统稳定性和负载能力。</li>
+<li>应用端改动小，不需要拆分业务模块。</li>
+</ul>
+<p>水平切分的缺点：</p>
+<ul>
+<li>跨分片的事务一致性难以保证</li>
+<li>跨库的 join 关联查询性能差</li>
+<li>数据多次扩展和维护量极其大</li>
+</ul>
+<blockquote>
+<p>水平切分后同一张表会出现在多个数据库/表中，每个库/表的内容不同。几种典型的数据分片规则为：</p>
+</blockquote>
+<h4 id="1-根据数值范围："><a href="#1-根据数值范围：" class="headerlink" title="1. 根据数值范围："></a>1. 根据数值范围：</h4><p><strong>按照时间区间或 ID 区间来分</strong>，例如：按日期将不同月甚至不同日的数据分散到不同的库中；将 userId 为 1 ~ 9999 的记录分到第一个库，10000 ~ 20000 的记录分到第二个库，以此类推。某种意义上，某些系统使用的“冷热数据分离”，将一些使用较少（不活跃）的历史数据迁移到其他库，业务上只提供热点数据的查询，也是类似的实践。</p>
+<p>优点：</p>
+<ul>
+<li>单表大小可控</li>
+<li>天然便于水平扩展，后期如果想对整个分片集群扩容时，只需要添加节点即可，无需对其他分片的数据进行迁移</li>
+<li>使用分片字段进行范围查询时，连续分片可快速定位分片进行快速查询，有效避免分片查询问题。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>热点数据成为性能瓶颈。连续分片可能存在数据热点，例如按时间字段分片，有些分片存储最近时间段内的数据，可能会被频繁的读写，而有些分片存储的历史数据，则很少被查询。</li>
+</ul>
+<h4 id="2-根据数值取模："><a href="#2-根据数值取模：" class="headerlink" title="2. 根据数值取模："></a>2. 根据数值取模：</h4><p><strong>一般采用 hash 取模 mod 的切分方式</strong>，例如：将 Customer 表根据 cusno 字段切分到 4 个库中，余数为 0 的放在第一个库，余数为 1 的放在第二个库，一次类推。这样同一个用户的数据会分散到同一个库中，如果查询条件带有 cuson 字段，则可明确定位到相应库去查询</p>
+<p>优点：</p>
+<ul>
+<li>数据分片相对比较均匀，不容易出现热点和并发访问的瓶颈</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>后期分片集群扩容时，需要迁移旧的数据，（使用一致性 hash 算法能较好的避免这个问题）</p>
+</li>
+<li><p>容易面临跨分片查询的复杂问题。比如上例中，如果频繁用到的查询条件中的不带 cuson 时，将会导致无法定位数据库，从而需要同时项 4 个库发起查询，再在内存中合并数据，取最小集返回给应用，分库反而成为拖累。</p>
+<p>  <img src="https://tva1.sinaimg.cn/large/007S8ZIlly1ggo82r9940j30ri0nodri.jpg" alt=""></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mac vagrant nfs 挂载</title>
+    <url>/2019/09/19/mac-vagrant-nfs-%E6%8C%82%E8%BD%BD/</url>
+    <content><![CDATA[<h3 id="使用-vagrant-virtualbox-搭建的-php-开发环境，挂载共享目录的问题"><a href="#使用-vagrant-virtualbox-搭建的-php-开发环境，挂载共享目录的问题" class="headerlink" title="使用 vagrant + virtualbox 搭建的 php 开发环境，挂载共享目录的问题"></a>使用 vagrant + virtualbox 搭建的 php 开发环境，挂载共享目录的问题</h3><p>laravel 6.0 框架要求 php 版本大于 7.2 ，在成功升级 7.3 以后，框架终于搭建成功，但是发现一个裸框架首页加载居然需要 1s 多的时间，不科学，很不科学，太不科学了。所以开始动手……</p>
+<p><em>首先要把虚拟机的网络设置成 :private_network 模式</em></p>
+<a id="more"></a>
+
+<ul>
+<li><p>虚拟机安装 nfs 服务：<br>  centos 5：</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install nfs-utils portmap</span><br></pre></td></tr></table></figure>
+<p>  centos 6：</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum -y install nfs-utils rpcbind</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于 MAC OS 系统集成了 nfs，只需要修改 <code>/etc/eprots</code> 文件，没有则新建：</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vi /etc/exports <span class="comment"># 保持空文件即可</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>Vagrantfile</code> 文件修改：</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">config.vm.synced_folder <span class="string">"~/www"</span>, <span class="string">"/var/www"</span>, <span class="built_in">type</span>: “nfs<span class="string">", mount_options:['nolock,vers=3,udp']</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>保存后，使用命令 <code>vagrant reload</code> 重启虚拟机后才会生效，期间会修改 MAC OX 的 <code>/etc/exports</code> 文件。会提示输入 mac 账号的密码。输入即可！ </p>
+]]></content>
+      <tags>
+        <tag>Mac</tag>
+        <tag>Vagrant</tag>
       </tags>
   </entry>
 </search>
