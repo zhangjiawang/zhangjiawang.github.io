@@ -248,10 +248,11 @@ hr {
   margin: 40px 0;
 }
 blockquote {
-  border-left: 4px solid #ddd;
+  border-left: 4px solid #3fac69;
+  background-color: #f5f5f5;
   color: var(--blockquote-color);
   margin: 0;
-  padding: 0 15px;
+  padding: 2px 15px 0px 15px;
 }
 blockquote cite::before {
   content: '-';
