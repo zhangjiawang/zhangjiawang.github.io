@@ -248,10 +248,10 @@ hr {
   margin: 40px 0;
 }
 blockquote {
-  border-left: 4px solid #ddd;
+  border-left: 4px solid #3fac69;
   color: var(--blockquote-color);
   margin: 0;
-  padding: 0 15px;
+  padding: 2px 15px 2px 15px;
 }
 blockquote cite::before {
   content: '-';
@@ -2603,7 +2603,7 @@ ul.breadcrumb li + li:last-child {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff90ff;
+  background: #cd94fe;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
