@@ -1893,8 +1893,8 @@
       </tags>
   </entry>
   <entry>
-    <title>docker-compose 搭建多版本php开发环境</title>
-    <url>/2020/07/25/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
+    <title>docker-compose 搭建多版本 php 开发环境</title>
+    <url>/2020/07/28/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我的本地机器是 mac ，使用 vagrant + virtualbox 安装了一个 centos7 的虚拟机，利用 vagrant 的共享目录来实现 centos 和本地机器的代码同步。然后在虚拟机里使用 docker 来运行多个容器跑项目</p>
 <p>由于公司业务复杂，不同的项目需要不同版本的 php 才能运行，故记录一下这次搭建开发环境的过程</p>
 <p><strong>这次准备要搭建的环境</strong></p>
@@ -1904,6 +1904,8 @@
 <li>php7.0</li>
 <li>php7.4</li>
 </ul>
+<a id="more"></a>
+
 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="1-安装-docker"><a href="#1-安装-docker" class="headerlink" title="1. 安装 docker"></a>1. 安装 docker</h2><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh3n5k7f67j30u00uy1d1.jpg" alt="image-20200725233553079"></p>
 <h2 id="2-安装-docker-compose"><a href="#2-安装-docker-compose" class="headerlink" title="2. 安装 docker-compose"></a>2. 安装 docker-compose</h2><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh3n6d08efj30sm08gaed.jpg" alt="image-20200725233651005"></p>
 <h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><p><img src="https://tva1.sinaimg.cn/large/007S8ZIlly1gh3orqq5ryj30o6086jsw.jpg" alt="image-20200726003159514"></p>
@@ -1966,5 +1968,11 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost dev-compose]<span class="comment"># docker-compose stop php7.4</span></span><br><span class="line">Stopping php7.4-dev ... <span class="keyword">done</span></span><br><span class="line">[root@localhost dev-compose]<span class="comment"># docker-compose rm php7.4</span></span><br><span class="line">Going to remove php7.4-dev</span><br><span class="line">Are you sure? [yN] y</span><br><span class="line">Removing php7.4-dev ... <span class="keyword">done</span></span><br><span class="line">[root@localhost dev-compose]<span class="comment"># docker-compose build php7.4</span></span><br><span class="line">Building php7.4</span><br><span class="line">Step 1/11 : FROM php:7.4-fpm</span><br><span class="line"> ---&gt; 5b23307ceb6e</span><br><span class="line">Step 2/11 : LABEL maintainer=<span class="string">"zhangjiawang"</span></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 67e1d992e905</span><br><span class="line">Step 3/11 : ENV TIME_ZONE Asia/Shanghai</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 46a4320dcaf5</span><br><span class="line">Step 4/11 : RUN sed -i <span class="string">"s/archive.ubuntu./mirrors.aliyun./g"</span> /etc/apt/sources.list</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 3c2b675f31f2</span><br><span class="line">Step 5/11 : RUN sed -i <span class="string">"s/deb.debian.org/mirrors.aliyun.com/g"</span> /etc/apt/sources.list</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 3aebfa80a509</span><br><span class="line">Step 6/11 : RUN sed -i <span class="string">"s/httpredir.debian.org/mirrors.aliyun.com\/debian-security/g"</span> /etc/apt/sources.list</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 889b51d01560</span><br><span class="line">Step 7/11 : RUN apt-get update &amp;&amp; apt-get install -y         libfreetype6-dev         libjpeg62-turbo-dev         libpng-dev         libonig-dev         wget</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; dff4fb71ceb5</span><br><span class="line">Step 8/11 : RUN docker-php-ext-configure gd --with-freetype --with-jpeg</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 4e152b3a429c</span><br><span class="line">Step 9/11 : RUN docker-php-ext-install -j$(nproc) gd pdo pdo_mysql sockets</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; e03869357250</span><br><span class="line">Step 10/11 : RUN pecl install redis     &amp;&amp; docker-php-ext-enable redis</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 2f1b9b18cbd0</span><br><span class="line">Step 11/11 : RUN rm -rf /tmp/php-* &amp;&amp; apt-get clean</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; a20fe520a3a0</span><br><span class="line">Successfully built a20fe520a3a0</span><br><span class="line">Successfully tagged dev-compose_php7.4:latest</span><br><span class="line">[root@localhost dev-compose]<span class="comment"># docker-compose up -d php7.4</span></span><br><span class="line">Creating php7.4-dev ... <span class="keyword">done</span></span><br><span class="line">[root@localhost dev-compose]<span class="comment"># docker exec -it php7.4-dev /bin/bash</span></span><br><span class="line">root@ea8d8eff8a49:/var/www/html<span class="comment"># cd /usr/local/etc/php</span></span><br><span class="line">root@ea8d8eff8a49:/usr/<span class="built_in">local</span>/etc/php<span class="comment"># ls -l</span></span><br><span class="line">total 144</span><br><span class="line">drwxr-xr-x  1 root root       38 Jul 25 10:18 conf.d</span><br><span class="line">-rw-r--r--  1  501 dialout     0 Jul 27  2020 php.ini</span><br><span class="line">-rw-r--r--. 1 root root    72278 Jun 11 18:42 php.ini-development</span><br><span class="line">-rw-r--r--. 1 root root    72582 Jun 11 18:42 php.ini-production</span><br><span class="line">root@ea8d8eff8a49:/usr/<span class="built_in">local</span>/etc/php<span class="comment">#</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
   </entry>
 </search>

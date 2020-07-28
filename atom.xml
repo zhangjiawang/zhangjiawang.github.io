@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-28T06:15:54.391Z</updated>
+  <updated>2020-07-28T06:19:02.828Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -17,25 +17,31 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>docker-compose 搭建多版本php开发环境</title>
-    <link href="https://zhangjiawang.github.io/2020/07/25/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
-    <id>https://zhangjiawang.github.io/2020/07/25/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
-    <published>2020-07-25T15:25:25.587Z</published>
-    <updated>2020-07-28T06:15:54.391Z</updated>
+    <title>docker-compose 搭建多版本 php 开发环境</title>
+    <link href="https://zhangjiawang.github.io/2020/07/28/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>https://zhangjiawang.github.io/2020/07/28/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
+    <published>2020-07-28T06:18:39.000Z</published>
+    <updated>2020-07-28T06:19:02.828Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;我的本地机器是 mac ，使用 vagrant + virtualbox 安装了一个 centos7 的虚拟机，利用 vagrant
-        
-      
+      &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;我的本地机器是 mac ，使用 vagrant + virtualbox 安装了一个 centos7 的虚拟机，利用 vagrant 的共享目录来实现 centos 和本地机器的代码同步。然后在虚拟机里使用 docker 来运行多个容器跑项目&lt;/p&gt;
+&lt;p&gt;由于公司业务复杂，不同的项目需要不同版本的 php 才能运行，故记录一下这次搭建开发环境的过程&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这次准备要搭建的环境&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nginx&lt;/li&gt;
+&lt;li&gt;php5.3&lt;/li&gt;
+&lt;li&gt;php7.0&lt;/li&gt;
+&lt;li&gt;php7.4&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
     
+      <category term="docker" scheme="https://zhangjiawang.github.io/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="https://zhangjiawang.github.io/tags/docker/"/>
     
   </entry>
   
