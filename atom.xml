@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-22T03:43:39.017Z</updated>
+  <updated>2020-07-28T06:15:54.391Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker-compose 搭建多版本php开发环境</title>
+    <link href="https://zhangjiawang.github.io/2020/07/25/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>https://zhangjiawang.github.io/2020/07/25/docker-compose%20%E6%90%AD%E5%BB%BA%E5%A4%9A%E7%89%88%E6%9C%ACphp%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</id>
+    <published>2020-07-25T15:25:25.587Z</published>
+    <updated>2020-07-28T06:15:54.391Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;我的本地机器是 mac ，使用 vagrant + virtualbox 安装了一个 centos7 的虚拟机，利用 vagrant
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Swoole修炼之路</title>
