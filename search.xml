@@ -1975,4 +1975,98 @@
         <tag>docker</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ORDER BY 排序 IF 以及 IN</title>
+    <url>/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN/</url>
+    <content><![CDATA[<p>在某些特定的业务场景下，需要把符合条件的单独几行，放在查询结果的开始，或者查询结果的尾部</p>
+<p>通过的方法就是 IN 语句（也可以通过 IF 语句）</p>
+<p>表内容：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqded03rp9j30f305odh3.jpg" alt="DB2E4464-BD3C-42AE-A5CE-ADF154FEFF1B"></p>
+<p>使用 ORDER BY 配合 IF 语句</p>
+<p>比如我想将 species 为 snake 的行数，单独列出来，我可以这样查询</p>
+<p><code>SELECT \* FROM pet ORDER BY if (species=&#39;snake&#39;,0,1),species;</code></p>
+<p>结果如下</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqded8rvacj30ft06labh.jpg" alt="3B9857B6-DAC1-4B05-9F97-CFAEB491DF43"></p>
+<blockquote>
+<p>我们可以看到，species 为 snake 的行数，被强行放置到了查询结果开头，这是怎么做到的呢？</p>
+</blockquote>
+<p>这里需要注意：<code>if (species=&#39;snake&#39;,0,1),species;</code></p>
+<p>这句话的意思是，我对 species 进行排序的同时，给 species 附加一个隐藏属性，这个隐藏属性，可以是 0 或者 1，什么意思呢？就是对species 排序的时候，优先级是判断 species 是否为 snake，如果是，返回 0，如果不是，返回 1.<br>随后，先进行 species 隐藏属性的排序，隐藏属性拍完以后，再进行剩余 species 的排序<br>也就是说，你可以把这个 if 语句，看成是一个独立的 column</p>
+<blockquote>
+<p>那如果我们想把 snake 的这一行放在查询结果尾部呢？</p>
+</blockquote>
+<p>那你可以这样写 <code>SELECT \* FROM pet ORDER BY if(species=&#39;snake&#39;,0,1) DESC,species;</code></p>
+<p>正如上面一段说的，你可以把 if 语句看成是独立的 column，所以你也可以为他添加排序条件 ASC 或者 DESC，当然默认是 ASC，可以不写。这样，查询就等于第一步是查询隐藏属性 0,1，然后进行 DESC 排序，因为 species=snake 的返回值是 0，所以进行倒序排列时，就被排在了最后</p>
+<p>以此类推，你在进行隐藏属性优先排序的同时，对于剩下的排序，你也可以另外进行 ASC 或者 DESC 的排序，就不截图了。</p>
+<p>使用 ORDER BY 配合 IN 语句</p>
+<blockquote>
+<p>上面一个是满足单个条件，返回 0 或者 1，那如果需要用到一个范围呢？</p>
+</blockquote>
+<p>你可以使用 IN 语句，比如下面，我要求把出生日期为 1993-02-04 或者 1989-05-13 的行数，排在最后</p>
+<p><code>SELECT \* FROM pet ORDER BY birth IN(&#39;1993-02-04&#39;,&#39;1989-05-13&#39;),birth;</code></p>
+<p>这样的话，birth IN 语句会进行判断，如果 birth 满足条件，返回 1，不满足，返回 0 所以，满足条件的两行，因为返回值是 1，进行 ASC 排序的时候，就被放置在了最后。</p>
+<p>其他情况以此类推</p>
+<p>因为平时用的时候经常只是用 IN 来筛选，很少用到和排序相结合的，所以记录一下</p>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一些记录</title>
+    <url>/2021/02/22/%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h1><p>1、身份证</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/^[<span class="number">1</span><span class="number">-9</span>][<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">5</span>&#125;(<span class="number">19</span>|<span class="number">20</span>)[<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">2</span>&#125;((<span class="number">01</span>|<span class="number">03</span>|<span class="number">05</span>|<span class="number">07</span>|<span class="number">08</span>|<span class="number">10</span>|<span class="number">12</span>)(<span class="number">0</span>[<span class="number">1</span><span class="number">-9</span>]|[<span class="number">1</span><span class="number">-2</span>][<span class="number">0</span><span class="number">-9</span>]|<span class="number">30</span>|<span class="number">31</span>)|(<span class="number">04</span>|<span class="number">06</span>|<span class="number">09</span>|<span class="number">11</span>)(<span class="number">0</span>[<span class="number">1</span><span class="number">-9</span>]|[<span class="number">1</span><span class="number">-2</span>][<span class="number">0</span><span class="number">-9</span>]|<span class="number">30</span>)|<span class="number">02</span>(<span class="number">0</span>[<span class="number">1</span><span class="number">-9</span>]|[<span class="number">1</span><span class="number">-2</span>][<span class="number">0</span><span class="number">-9</span>]))[<span class="number">0</span><span class="number">-9</span>]&#123;<span class="number">3</span>&#125;([<span class="number">0</span><span class="number">-9</span>]|x|X)$/</span><br></pre></td></tr></table></figure>
+
+<p>2、银行卡</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/^([<span class="number">1</span><span class="number">-9</span>]&#123;<span class="number">1</span>&#125;)(\d&#123;<span class="number">15</span>&#125;|\d&#123;<span class="number">18</span>&#125;)$/</span><br></pre></td></tr></table></figure>
+
+<p>3、手机号</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/^<span class="number">1</span>(<span class="number">3</span>|<span class="number">4</span>|<span class="number">5</span>|<span class="number">7</span>|<span class="number">8</span>)\d&#123;<span class="number">9</span>&#125;$/</span><br></pre></td></tr></table></figure>
+
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>1、input 只能输入数字</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">oninput=<span class="string">"value=value.replace(/[^\d]/g,'')"</span></span><br></pre></td></tr></table></figure>
+
+<p>2、解决 js 浮点数运算问题</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//加法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c, d, e;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        c = a.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;</span><br><span class="line">        c = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        d = b.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;</span><br><span class="line">        d = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e = <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="built_in">Math</span>.max(c, d)), (mul(a, e) + mul(b, e)) / e;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//减法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sub</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c, d, e;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        c = a.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;</span><br><span class="line">        c = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        d = b.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;</span><br><span class="line">        d = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e = <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="built_in">Math</span>.max(c, d)), (mul(a, e) - mul(b, e)) / e;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//乘法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mul</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c = <span class="number">0</span>,</span><br><span class="line">        d = a.toString(),</span><br><span class="line">        e = b.toString();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        c += d.split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;&#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        c += e.split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (f) &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Number</span>(d.replace(<span class="string">"."</span>, <span class="string">""</span>)) * <span class="built_in">Number</span>(e.replace(<span class="string">"."</span>, <span class="string">""</span>)) / <span class="built_in">Math</span>.pow(<span class="number">10</span>, c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//除法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">div</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> c, d, e = <span class="number">0</span>,</span><br><span class="line">        f = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        e = a.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (g) &#123;&#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        f = b.toString().split(<span class="string">"."</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (g) &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> c = <span class="built_in">Number</span>(a.toString().replace(<span class="string">"."</span>, <span class="string">""</span>)), d = <span class="built_in">Number</span>(b.toString().replace(<span class="string">"."</span>, <span class="string">""</span>)), mul(c / d, <span class="built_in">Math</span>.pow(<span class="number">10</span>, f - e));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>ORDER BY 排序 IF 及 IN~</title>
+    <url>/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN~/</url>
+    <content><![CDATA[<p>在某些特定的业务场景下，需要把符合条件的单独几行，放在查询结果的开始，或者查询结果的尾部</p>
+<p>通过的方法就是 IN 语句（也可以通过 IF 语句）</p>
+<p>表内容：</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqded03rp9j30f305odh3.jpg" alt="DB2E4464-BD3C-42AE-A5CE-ADF154FEFF1B"></p>
+<p>使用 ORDER BY 配合 IF 语句</p>
+<p>比如我想将 species 为 snake 的行数，单独列出来，我可以这样查询</p>
+<p><code>SELECT \* FROM pet ORDER BY if (species=&#39;snake&#39;,0,1),species;</code></p>
+<p>结果如下</p>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1gqded8rvacj30ft06labh.jpg" alt="3B9857B6-DAC1-4B05-9F97-CFAEB491DF43"></p>
+<blockquote>
+<p>我们可以看到，species 为 snake 的行数，被强行放置到了查询结果开头，这是怎么做到的呢？</p>
+</blockquote>
+<p>这里需要注意：<code>if (species=&#39;snake&#39;,0,1),species;</code></p>
+<p>这句话的意思是，我对 species 进行排序的同时，给 species 附加一个隐藏属性，这个隐藏属性，可以是 0 或者 1，什么意思呢？就是对species 排序的时候，优先级是判断 species 是否为 snake，如果是，返回 0，如果不是，返回 1.<br>随后，先进行 species 隐藏属性的排序，隐藏属性拍完以后，再进行剩余 species 的排序<br>也就是说，你可以把这个 if 语句，看成是一个独立的 column</p>
+<blockquote>
+<p>那如果我们想把 snake 的这一行放在查询结果尾部呢？</p>
+</blockquote>
+<p>那你可以这样写 <code>SELECT \* FROM pet ORDER BY if(species=&#39;snake&#39;,0,1) DESC,species;</code></p>
+<p>正如上面一段说的，你可以把 if 语句看成是独立的 column，所以你也可以为他添加排序条件 ASC 或者 DESC，当然默认是 ASC，可以不写。这样，查询就等于第一步是查询隐藏属性 0,1，然后进行 DESC 排序，因为 species=snake 的返回值是 0，所以进行倒序排列时，就被排在了最后</p>
+<p>以此类推，你在进行隐藏属性优先排序的同时，对于剩下的排序，你也可以另外进行 ASC 或者 DESC 的排序，就不截图了。</p>
+<p>使用 ORDER BY 配合 IN 语句</p>
+<blockquote>
+<p>上面一个是满足单个条件，返回 0 或者 1，那如果需要用到一个范围呢？</p>
+</blockquote>
+<p>你可以使用 IN 语句，比如下面，我要求把出生日期为 1993-02-04 或者 1989-05-13 的行数，排在最后</p>
+<p><code>SELECT \* FROM pet ORDER BY birth IN(&#39;1993-02-04&#39;,&#39;1989-05-13&#39;),birth;</code></p>
+<p>这样的话，birth IN 语句会进行判断，如果 birth 满足条件，返回 1，不满足，返回 0 所以，满足条件的两行，因为返回值是 1，进行 ASC 排序的时候，就被放置在了最后。</p>
+<p>其他情况以此类推</p>
+<p>因为平时用的时候经常只是用 IN 来筛选，很少用到和排序相结合的，所以记录一下</p>
+]]></content>
+  </entry>
 </search>

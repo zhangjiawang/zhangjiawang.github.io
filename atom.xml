@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangjiawang.github.io/"/>
-  <updated>2020-07-28T06:19:02.828Z</updated>
+  <updated>2021-05-10T08:16:31.404Z</updated>
   <id>https://zhangjiawang.github.io/</id>
   
   <author>
@@ -15,6 +15,86 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ORDER BY 排序 IF 以及 IN</title>
+    <link href="https://zhangjiawang.github.io/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN/"/>
+    <id>https://zhangjiawang.github.io/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN/</id>
+    <published>2021-05-10T08:04:54.575Z</published>
+    <updated>2021-05-10T08:16:31.404Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在某些特定的业务场景下，需要把符合条件的单独几行，放在查询结果的开始，或者查询结果的尾部&lt;/p&gt;
+&lt;p&gt;通过的方法就是 IN 语句（也可以通过 IF 语句）&lt;/p&gt;
+&lt;p&gt;表内容：&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="https://zhangjiawang.github.io/categories/mysql/"/>
+    
+    
+      <category term="mysql" scheme="https://zhangjiawang.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ORDER BY 排序 IF 及 IN~</title>
+    <link href="https://zhangjiawang.github.io/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN~/"/>
+    <id>https://zhangjiawang.github.io/2021/05/10/ORDER%20BY%20%E6%8E%92%E5%BA%8F%20IF%20%E5%8F%8A%20IN~/</id>
+    <published>2021-05-10T08:04:54.575Z</published>
+    <updated>2021-05-10T08:13:30.839Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;在某些特定的业务场景下，需要把符合条件的单独几行，放在查询结果的开始，或者查询结果的尾部&lt;/p&gt;
+&lt;p&gt;通过的方法就是 IN 语句（也可以通过 IF 语句）&lt;/p&gt;
+&lt;p&gt;表内容：&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>一些记录</title>
+    <link href="https://zhangjiawang.github.io/2021/02/22/%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/"/>
+    <id>https://zhangjiawang.github.io/2021/02/22/%E4%B8%80%E4%BA%9B%E8%AE%B0%E5%BD%95/</id>
+    <published>2021-02-22T09:12:22.269Z</published>
+    <updated>2021-02-22T09:17:49.688Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;正则&quot;&gt;&lt;a href=&quot;#正则&quot; class=&quot;headerlink&quot; title=&quot;正则&quot;&gt;&lt;/a&gt;正则&lt;/h1&gt;&lt;p&gt;1、身份证&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>docker-compose 搭建多版本 php 开发环境</title>
