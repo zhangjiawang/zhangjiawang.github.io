@@ -30,7 +30,7 @@
 <meta property="og:description" content="范围 range 关键字用于 for 循环中迭代数组、切片、通道或集合（map）的元素，在数组和切片中它返回元素的索引和索引对应的值，在集合中返回 key-value 对的 key 值。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-01-09T06:55:21.000Z">
-<meta property="article:modified_time" content="2020-07-12T08:03:50.048Z">
+<meta property="article:modified_time" content="2021-05-27T07:41:10.524Z">
 <meta property="article:author" content="Zhang">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
@@ -198,20 +198,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -340,7 +340,7 @@
 </ol>
 <h2 id="通道"><a href="#通道" class="headerlink" title="通道"></a>通道</h2><ol>
 <li><p>通道 <code>channel</code> 是用来传递数据的一个数据结构。</p>
- <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">// 声明 ch 通道</span></span><br><span class="line">ch &lt;- v                 <span class="comment">// 把 v 发送到通道 ch </span></span><br><span class="line">v := ch                 <span class="comment">// 从 ch 接受数据并赋值给 v</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">// 声明 ch 通道</span></span><br><span class="line">ch &lt;- v                 <span class="comment">// 把 v 发送到通道 ch </span></span><br><span class="line">v := &lt;- ch                 <span class="comment">// 从 ch 接受数据并赋值给 v</span></span><br></pre></td></tr></table></figure>
 <p> 示例：</p>
  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(s []<span class="keyword">int</span>, c <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    num := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _,v := <span class="keyword">range</span> s &#123;</span><br><span class="line">        num += v</span><br><span class="line">    &#125;</span><br><span class="line">    c &lt;- num</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    s := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">    c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> sum(s[:<span class="built_in">len</span>(s)/<span class="number">2</span>], c)</span><br><span class="line">    <span class="keyword">go</span> sum(s[<span class="built_in">len</span>(s)/<span class="number">2</span>:], c)</span><br><span class="line"></span><br><span class="line">    x, y := &lt;-c, &lt;-c</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">"x=%d，y=%d，x+y=%d"</span>, x, y, x+y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// x=15，y=6，x+y=21</span></span><br></pre></td></tr></table></figure></li>
 <li><p>通道缓存区</p>
