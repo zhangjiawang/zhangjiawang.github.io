@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL 存储引擎原理 &amp; 锁 | 张嘉旺の博客</title><meta name="keywords" content="mysql"><meta name="author" content="Zhang"><meta name="copyright" content="Zhang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="一、MySQL 存储引擎原理拆解 mysql 存储最小单位 page  一、MySQL 记录存储">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL 存储引擎原理 &amp; 锁 | 张嘉旺の博客</title><meta name="keywords" content="mysql"><meta name="author" content="Zhang"><meta name="copyright" content="Zhang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="一、MySQL 存储引擎原理拆解&#96;  mysql 存储最小单位 page  一、MySQL 记录存储">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL 存储引擎原理 &amp; 锁">
 <meta property="og:url" content="https://zhangjiawang.github.io/2021/11/01/MySql%20%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%8E%9F%E7%90%86%20&%20%E9%94%81/index.html">
 <meta property="og:site_name" content="张嘉旺の博客">
-<meta property="og:description" content="一、MySQL 存储引擎原理拆解 mysql 存储最小单位 page  一、MySQL 记录存储">
+<meta property="og:description" content="一、MySQL 存储引擎原理拆解&#96;  mysql 存储最小单位 page  一、MySQL 记录存储">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
 <meta property="article:published_time" content="2021-11-01T06:26:07.000Z">
-<meta property="article:modified_time" content="2022-08-27T16:27:13.608Z">
+<meta property="article:modified_time" content="2023-07-22T07:20:34.962Z">
 <meta property="article:author" content="Zhang">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -58,7 +58,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-08-28 00:27:13'
+  postUpdate: '2023-07-22 15:20:34'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -147,10 +147,11 @@
       }
     }
     detectApple()
-    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/08/27/Xqxt6gBj3eZkYLs.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">张嘉旺の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL 存储引擎原理 &amp; 锁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-01T06:26:07.000Z" title="发表于 2021-11-01 14:26:07">2021-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-27T16:27:13.608Z" title="更新于 2022-08-28 00:27:13">2022-08-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">509</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 存储引擎原理 &amp; 锁"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、MySQL-存储引擎原理拆解"><a href="#一、MySQL-存储引擎原理拆解" class="headerlink" title="一、MySQL 存储引擎原理拆解"></a>一、MySQL 存储引擎原理拆解</h2><blockquote>
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/08/27/Xqxt6gBj3eZkYLs.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">张嘉旺の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL 存储引擎原理 &amp; 锁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-01T06:26:07.000Z" title="发表于 2021-11-01 14:26:07">2021-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-22T07:20:34.962Z" title="更新于 2023-07-22 15:20:34">2023-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/mysql/">mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">510</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 存储引擎原理 &amp; 锁"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="一、MySQL-存储引擎原理拆解"><a href="#一、MySQL-存储引擎原理拆解" class="headerlink" title="一、MySQL 存储引擎原理拆解"></a>一、MySQL 存储引擎原理拆解</h2><p>&#96;</p>
+<blockquote>
 <p>mysql 存储最小单位 page</p>
 </blockquote>
-<h4 id="一、MySQL-记录存储"><a href="#一、MySQL-记录存储" class="headerlink" title="一、MySQL 记录存储"></a>一、MySQL 记录存储</h4><p><img src="https://i.loli.net/2021/10/31/qCG8JsDbFeIkhXg.png" alt="image-20211031115018726"></p>
+<h4 id="一、MySQL-记录存储"><a href="#一、MySQL-记录存储" class="headerlink" title="一、MySQL 记录存储"></a>一、MySQL 记录存储</h4><p><img src="https://s2.loli.net/2023/07/22/eTDYtRwgxykUN3z.png" alt="image-20211031115018726"></p>
 <span id="more"></span>
 
 <p>1、页头<br>记录页面的控制信息，共占56字节，包括页的左右兄弟页指针、页面空间使用情况等</p>
@@ -163,10 +164,10 @@
 <h4 id="二、页内记录维护"><a href="#二、页内记录维护" class="headerlink" title="二、页内记录维护"></a>二、页内记录维护</h4><p>1、顺序保证</p>
 <ul>
 <li><p>物理有序</p>
-<p><img src="https://i.loli.net/2021/10/31/bO6p5srkXvNUzLI.png" alt="image-20211031123252813"></p>
+<p><img src="https://s2.loli.net/2023/07/22/9glNo1bOLiH85vJ.png" alt="image-20211031123252813"></p>
 </li>
 <li><p><strong>逻辑有序</strong><br>查询速度可以优化</p>
-<p><img src="https://i.loli.net/2021/10/31/aBty2kzj1wfMxSE.png" alt="image-20211031124530650"></p>
+<p><img src="https://s2.loli.net/2023/07/22/DPEJS6IHeBZpOXo.png" alt="image-20211031124530650"></p>
 </li>
 </ul>
 <p>2、插入策略</p>
@@ -182,7 +183,7 @@
 <li>遍历</li>
 <li>二分查询</li>
 </ul>
-<p><img src="https://i.loli.net/2021/10/31/gzPDG8BZ496KOoN.png" alt="image-20211031130530624"></p>
+<p><img src="https://s2.loli.net/2023/07/22/xhiZgSb3ceDkyKw.png" alt="image-20211031130530624"></p>
 <p>所有记录以逻辑有序的方式存为链表，Slot 区将链表分为多个 sub list，对 slot 区进行二分查找，快速定位到 sub list，然后遍历 sub list</p>
 <h2 id="二、MySQL-锁"><a href="#二、MySQL-锁" class="headerlink" title="二、MySQL 锁"></a>二、MySQL 锁</h2><h4 id="一、Innodb-锁种类"><a href="#一、Innodb-锁种类" class="headerlink" title="一、Innodb 锁种类"></a>一、Innodb 锁种类</h4><p>1、锁粒度</p>
 <ul>
@@ -191,17 +192,17 @@
 <li>作用在索引上</li>
 <li>聚簇索引 &amp; 二级索引</li>
 </ul>
-<p><img src="https://i.loli.net/2021/11/01/L2qeojmPQKxJSn3.png" alt="image-20211101110443780"></p>
+<p><img src="https://s2.loli.net/2023/07/22/9uTarnmdshE7wFq.png" alt="image-20211101110443780"></p>
 </li>
 </ul>
 <blockquote>
 <p>RC 隔离级别，非唯一索引</p>
 </blockquote>
-<p><img src="https://i.loli.net/2021/11/01/GWhyVNQ6LUpmv7r.png" alt="image-20211101111135026"></p>
+<p><img src="https://s2.loli.net/2023/07/22/G9CNzvyVxoA5Q2h.png" alt="image-20211101111135026"></p>
 <blockquote>
 <p>RR 隔离级别，非唯一索引（加间隙锁）</p>
 </blockquote>
-<p><img src="https://i.loli.net/2021/11/01/rzK7vebpUXGiAgq.png" alt="image-20211101111947504"></p>
+<p><img src="https://s2.loli.net/2023/07/22/45qaVwzsigeHIE1.png" alt="image-20211101111947504"></p>
 <ul>
 <li>间隙锁<ul>
 <li>解决可重复读模式下的幻读问题</li>
