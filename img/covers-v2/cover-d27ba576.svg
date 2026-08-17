@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#355c7d"/><stop offset="100%" stop-color="#6c5b7b"/></linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <path d="M0 320 Q 100 260 200 320 T 400 320 T 600 320 T 800 320 V450 H0Z" fill="rgba(255,255,255,0.06)"/>
+  <path d="M0 360 Q 100 300 200 360 T 400 360 T 600 360 T 800 360 V450 H0Z" fill="rgba(255,255,255,0.10)"/>
+  <path d="M0 400 Q 100 345 200 400 T 400 400 T 600 400 T 800 400 V450 H0Z" fill="rgba(255,255,255,0.16)"/>
+  <circle cx="140" cy="120" r="70" fill="rgba(255,255,255,0.07)"/>
+  <circle cx="700" cy="180" r="110" fill="rgba(255,255,255,0.06)"/>
+    <text x="400" y="215.0" text-anchor="middle" fill="#ffffff" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="44" font-weight="700" style="text-shadow: 0 2px 16px rgba(0,0,0,0.35)">数据库分库分表思路</text>
+    <text x="400" y="415" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Helvetica Neue, Arial, sans-serif" font-size="12" letter-spacing="5">WANT&#39;S BLOG</text>
+</svg>

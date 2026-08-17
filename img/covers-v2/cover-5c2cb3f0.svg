@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.28)"/>
+      <stop offset="60%" stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#halo)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  <circle cx="650" cy="90" r="160" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <circle cx="650" cy="90" r="110" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <rect x="60" y="60" width="680" height="330" rx="6" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+    <text x="400" y="215.0" text-anchor="middle" fill="#ffffff" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="44" font-weight="700" style="text-shadow: 0 2px 16px rgba(0,0,0,0.35)">数字不同进制之间的转换</text>
+    <text x="400" y="415" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Helvetica Neue, Arial, sans-serif" font-size="12" letter-spacing="5">WANT&#39;S BLOG</text>
+</svg>

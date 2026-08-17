@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f83600"/><stop offset="100%" stop-color="#f9d423"/></linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <path d="M0 0 H800 L0 450 Z" fill="rgba(0,0,0,0.12)"/>
+  <path d="M800 0 V450 L420 0 Z" fill="rgba(255,255,255,0.10)"/>
+  <rect x="0" y="330" width="800" height="120" fill="#f98512" opacity="0.25"/>
+  <path d="M0 370 L800 270 V450 H0 Z" fill="rgba(0,0,0,0.18)"/>
+    <text x="400" y="192.0" text-anchor="middle" fill="#ffffff" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="32" font-weight="700" style="text-shadow: 0 2px 16px rgba(0,0,0,0.35)">Redis </text>
+    <text x="400" y="238.0" text-anchor="middle" fill="#ffffff" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="32" font-weight="700" style="text-shadow: 0 2px 16px rgba(0,0,0,0.35)">缓存数据库双写不一致</text>
+    <text x="400" y="415" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Helvetica Neue, Arial, sans-serif" font-size="12" letter-spacing="5">WANT&#39;S BLOG</text>
+</svg>
